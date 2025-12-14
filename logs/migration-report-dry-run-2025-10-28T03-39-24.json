@@ -1,0 +1,939 @@
+{
+  "timestamp": "2025-10-28T03:39:23.378Z",
+  "mode": "dry-run",
+  "total_images": 116,
+  "successful": 115,
+  "skipped": 0,
+  "failed": 0,
+  "orphan_photos": 1,
+  "details": [
+    {
+      "filename": "00fc3d0d.Delivery Photo.160519.jpg",
+      "order_id": "00fc3d0d",
+      "status": "success",
+      "old_path": "Orders_Images/00fc3d0d.Delivery Photo.160519.jpg",
+      "storage_path": "00fc3d0d-1761622763522.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/00fc3d0d-1761622763522.jpg"
+    },
+    {
+      "filename": "01662c4c.Delivery Photo.151216.jpg",
+      "order_id": "01662c4c",
+      "status": "success",
+      "old_path": "Orders_Images/01662c4c.Delivery Photo.151216.jpg",
+      "storage_path": "01662c4c-1761622763545.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/01662c4c-1761622763545.jpg"
+    },
+    {
+      "filename": "0208da81.Delivery Photo.145222.jpg",
+      "order_id": "0208da81",
+      "status": "success",
+      "old_path": "Orders_Images/0208da81.Delivery Photo.145222.jpg",
+      "storage_path": "0208da81-1761622763555.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/0208da81-1761622763555.jpg"
+    },
+    {
+      "filename": "02d79734.Delivery Photo.135458.jpg",
+      "order_id": "02d79734",
+      "status": "success",
+      "old_path": "Orders_Images/02d79734.Delivery Photo.135458.jpg",
+      "storage_path": "02d79734-1761622763561.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/02d79734-1761622763561.jpg"
+    },
+    {
+      "filename": "0333efb7.Delivery Photo.134113.jpg",
+      "order_id": "0333efb7",
+      "status": "success",
+      "old_path": "Orders_Images/0333efb7.Delivery Photo.134113.jpg",
+      "storage_path": "0333efb7-1761622763569.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/0333efb7-1761622763569.jpg"
+    },
+    {
+      "filename": "0376f5d2.Delivery Photo.171442.jpg",
+      "order_id": "0376f5d2",
+      "status": "success",
+      "old_path": "Orders_Images/0376f5d2.Delivery Photo.171442.jpg",
+      "storage_path": "0376f5d2-1761622763579.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/0376f5d2-1761622763579.jpg"
+    },
+    {
+      "filename": "04c8082f.Delivery Photo.165713.jpg",
+      "order_id": "04c8082f",
+      "status": "success",
+      "old_path": "Orders_Images/04c8082f.Delivery Photo.165713.jpg",
+      "storage_path": "04c8082f-1761622763586.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/04c8082f-1761622763586.jpg"
+    },
+    {
+      "filename": "0578672c.Delivery Photo.160153.jpg",
+      "order_id": "0578672c",
+      "status": "success",
+      "old_path": "Orders_Images/0578672c.Delivery Photo.160153.jpg",
+      "storage_path": "0578672c-1761622763598.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/0578672c-1761622763598.jpg"
+    },
+    {
+      "filename": "065707d6.Delivery Photo.172022.jpg",
+      "order_id": "065707d6",
+      "status": "success",
+      "old_path": "Orders_Images/065707d6.Delivery Photo.172022.jpg",
+      "storage_path": "065707d6-1761622763605.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/065707d6-1761622763605.jpg"
+    },
+    {
+      "filename": "0d7fd4f1.Delivery Photo.173654.jpg",
+      "order_id": "0d7fd4f1",
+      "status": "success",
+      "old_path": "Orders_Images/0d7fd4f1.Delivery Photo.173654.jpg",
+      "storage_path": "0d7fd4f1-1761622763612.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/0d7fd4f1-1761622763612.jpg"
+    },
+    {
+      "filename": "1203da02.Delivery Photo.185914.jpg",
+      "order_id": "1203da02",
+      "status": "success",
+      "old_path": "Orders_Images/1203da02.Delivery Photo.185914.jpg",
+      "storage_path": "1203da02-1761622763621.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/1203da02-1761622763621.jpg"
+    },
+    {
+      "filename": "154a05c6.Delivery Photo.152201.jpg",
+      "order_id": "154a05c6",
+      "status": "success",
+      "old_path": "Orders_Images/154a05c6.Delivery Photo.152201.jpg",
+      "storage_path": "154a05c6-1761622763636.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/154a05c6-1761622763636.jpg"
+    },
+    {
+      "filename": "16eb7d14.Delivery Photo.144034.jpg",
+      "order_id": "16eb7d14",
+      "status": "success",
+      "old_path": "Orders_Images/16eb7d14.Delivery Photo.144034.jpg",
+      "storage_path": "16eb7d14-1761622763642.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/16eb7d14-1761622763642.jpg"
+    },
+    {
+      "filename": "17e4fc0e.Delivery Photo.151107.jpg",
+      "order_id": "17e4fc0e",
+      "status": "success",
+      "old_path": "Orders_Images/17e4fc0e.Delivery Photo.151107.jpg",
+      "storage_path": "17e4fc0e-1761622763647.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/17e4fc0e-1761622763647.jpg"
+    },
+    {
+      "filename": "1888f71b.Delivery Photo.140109.jpg",
+      "order_id": "1888f71b",
+      "status": "success",
+      "old_path": "Orders_Images/1888f71b.Delivery Photo.140109.jpg",
+      "storage_path": "1888f71b-1761622763663.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/1888f71b-1761622763663.jpg"
+    },
+    {
+      "filename": "194d0f0a.Delivery Photo.142017.jpg",
+      "order_id": "194d0f0a",
+      "status": "success",
+      "old_path": "Orders_Images/194d0f0a.Delivery Photo.142017.jpg",
+      "storage_path": "194d0f0a-1761622763669.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/194d0f0a-1761622763669.jpg"
+    },
+    {
+      "filename": "1a03c40e.Delivery Photo.165914.jpg",
+      "order_id": "1a03c40e",
+      "status": "success",
+      "old_path": "Orders_Images/1a03c40e.Delivery Photo.165914.jpg",
+      "storage_path": "1a03c40e-1761622763674.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/1a03c40e-1761622763674.jpg"
+    },
+    {
+      "filename": "1e3f6ea4.Delivery Photo.144015.jpg",
+      "order_id": "1e3f6ea4",
+      "status": "success",
+      "old_path": "Orders_Images/1e3f6ea4.Delivery Photo.144015.jpg",
+      "storage_path": "1e3f6ea4-1761622763678.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/1e3f6ea4-1761622763678.jpg"
+    },
+    {
+      "filename": "1e62e168.Delivery Photo.153649.jpg",
+      "order_id": "1e62e168",
+      "status": "success",
+      "old_path": "Orders_Images/1e62e168.Delivery Photo.153649.jpg",
+      "storage_path": "1e62e168-1761622763682.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/1e62e168-1761622763682.jpg"
+    },
+    {
+      "filename": "20792ae0.Delivery Photo.152142.jpg",
+      "order_id": "20792ae0",
+      "status": "success",
+      "old_path": "Orders_Images/20792ae0.Delivery Photo.152142.jpg",
+      "storage_path": "20792ae0-1761622763686.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/20792ae0-1761622763686.jpg"
+    },
+    {
+      "filename": "20a595a5.Delivery Photo.184132.jpg",
+      "order_id": "20a595a5",
+      "status": "success",
+      "old_path": "Orders_Images/20a595a5.Delivery Photo.184132.jpg",
+      "storage_path": "20a595a5-1761622763691.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/20a595a5-1761622763691.jpg"
+    },
+    {
+      "filename": "21f2cada.Delivery Photo.134445.jpg",
+      "order_id": "21f2cada",
+      "status": "success",
+      "old_path": "Orders_Images/21f2cada.Delivery Photo.134445.jpg",
+      "storage_path": "21f2cada-1761622763695.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/21f2cada-1761622763695.jpg"
+    },
+    {
+      "filename": "229a4d13.Delivery Photo.153906.jpg",
+      "order_id": "229a4d13",
+      "status": "success",
+      "old_path": "Orders_Images/229a4d13.Delivery Photo.153906.jpg",
+      "storage_path": "229a4d13-1761622763699.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/229a4d13-1761622763699.jpg"
+    },
+    {
+      "filename": "23b2ad77.Delivery Photo.180220.jpg",
+      "order_id": "23b2ad77",
+      "status": "success",
+      "old_path": "Orders_Images/23b2ad77.Delivery Photo.180220.jpg",
+      "storage_path": "23b2ad77-1761622763703.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/23b2ad77-1761622763703.jpg"
+    },
+    {
+      "filename": "24348dce.Delivery Photo.151153.jpg",
+      "order_id": "24348dce",
+      "status": "success",
+      "old_path": "Orders_Images/24348dce.Delivery Photo.151153.jpg",
+      "storage_path": "24348dce-1761622763707.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/24348dce-1761622763707.jpg"
+    },
+    {
+      "filename": "28996506.Delivery Photo.141604.jpg",
+      "order_id": "28996506",
+      "status": "success",
+      "old_path": "Orders_Images/28996506.Delivery Photo.141604.jpg",
+      "storage_path": "28996506-1761622763710.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/28996506-1761622763710.jpg"
+    },
+    {
+      "filename": "2bafc4f2.Delivery Photo.151246.jpg",
+      "order_id": "2bafc4f2",
+      "status": "success",
+      "old_path": "Orders_Images/2bafc4f2.Delivery Photo.151246.jpg",
+      "storage_path": "2bafc4f2-1761622763714.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/2bafc4f2-1761622763714.jpg"
+    },
+    {
+      "filename": "2e7da936.Delivery Photo.021724.jpg",
+      "order_id": "2e7da936",
+      "status": "success",
+      "old_path": "Orders_Images/2e7da936.Delivery Photo.021724.jpg",
+      "storage_path": "2e7da936-1761622763718.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/2e7da936-1761622763718.jpg"
+    },
+    {
+      "filename": "2fd2839f.Delivery Photo.163726.jpg",
+      "order_id": "2fd2839f",
+      "status": "success",
+      "old_path": "Orders_Images/2fd2839f.Delivery Photo.163726.jpg",
+      "storage_path": "2fd2839f-1761622763722.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/2fd2839f-1761622763722.jpg"
+    },
+    {
+      "filename": "330d1b74.Delivery Photo.152500.jpg",
+      "order_id": "330d1b74",
+      "status": "success",
+      "old_path": "Orders_Images/330d1b74.Delivery Photo.152500.jpg",
+      "storage_path": "330d1b74-1761622763727.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/330d1b74-1761622763727.jpg"
+    },
+    {
+      "filename": "36355de6.Delivery Photo.133130.jpg",
+      "order_id": "36355de6",
+      "status": "success",
+      "old_path": "Orders_Images/36355de6.Delivery Photo.133130.jpg",
+      "storage_path": "36355de6-1761622763731.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/36355de6-1761622763731.jpg"
+    },
+    {
+      "filename": "3d77b0d1.Delivery Photo.160515.jpg",
+      "order_id": "3d77b0d1",
+      "status": "success",
+      "old_path": "Orders_Images/3d77b0d1.Delivery Photo.160515.jpg",
+      "storage_path": "3d77b0d1-1761622763735.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/3d77b0d1-1761622763735.jpg"
+    },
+    {
+      "filename": "3e3a51d4.Delivery Photo.175237.jpg",
+      "order_id": "3e3a51d4",
+      "status": "success",
+      "old_path": "Orders_Images/3e3a51d4.Delivery Photo.175237.jpg",
+      "storage_path": "3e3a51d4-1761622763739.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/3e3a51d4-1761622763739.jpg"
+    },
+    {
+      "filename": "3efeccda.Delivery Photo.154250.jpg",
+      "order_id": "3efeccda",
+      "status": "success",
+      "old_path": "Orders_Images/3efeccda.Delivery Photo.154250.jpg",
+      "storage_path": "3efeccda-1761622763743.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/3efeccda-1761622763743.jpg"
+    },
+    {
+      "filename": "415511ae.Delivery Photo.171049.jpg",
+      "order_id": "415511ae",
+      "status": "success",
+      "old_path": "Orders_Images/415511ae.Delivery Photo.171049.jpg",
+      "storage_path": "415511ae-1761622763747.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/415511ae-1761622763747.jpg"
+    },
+    {
+      "filename": "4586b977.Delivery Photo.170640.jpg",
+      "order_id": "4586b977",
+      "status": "success",
+      "old_path": "Orders_Images/4586b977.Delivery Photo.170640.jpg",
+      "storage_path": "4586b977-1761622763751.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/4586b977-1761622763751.jpg"
+    },
+    {
+      "filename": "45b491e5.Delivery Photo.154324.jpg",
+      "order_id": "45b491e5",
+      "status": "success",
+      "old_path": "Orders_Images/45b491e5.Delivery Photo.154324.jpg",
+      "storage_path": "45b491e5-1761622763756.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/45b491e5-1761622763756.jpg"
+    },
+    {
+      "filename": "471f5296.Delivery Photo.153858.jpg",
+      "order_id": "471f5296",
+      "status": "success",
+      "old_path": "Orders_Images/471f5296.Delivery Photo.153858.jpg",
+      "storage_path": "471f5296-1761622763761.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/471f5296-1761622763761.jpg"
+    },
+    {
+      "filename": "4a0f8ae4.Delivery Photo.160832.jpg",
+      "order_id": "4a0f8ae4",
+      "status": "success",
+      "old_path": "Orders_Images/4a0f8ae4.Delivery Photo.160832.jpg",
+      "storage_path": "4a0f8ae4-1761622763765.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/4a0f8ae4-1761622763765.jpg"
+    },
+    {
+      "filename": "4b463535.Delivery Photo.173434.jpg",
+      "order_id": "4b463535",
+      "status": "success",
+      "old_path": "Orders_Images/4b463535.Delivery Photo.173434.jpg",
+      "storage_path": "4b463535-1761622763769.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/4b463535-1761622763769.jpg"
+    },
+    {
+      "filename": "4c7be32d.Delivery Photo.142519.jpg",
+      "order_id": "4c7be32d",
+      "status": "success",
+      "old_path": "Orders_Images/4c7be32d.Delivery Photo.142519.jpg",
+      "storage_path": "4c7be32d-1761622763773.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/4c7be32d-1761622763773.jpg"
+    },
+    {
+      "filename": "4ed7d5ce.Delivery Photo.151638.jpg",
+      "order_id": "4ed7d5ce",
+      "status": "success",
+      "old_path": "Orders_Images/4ed7d5ce.Delivery Photo.151638.jpg",
+      "storage_path": "4ed7d5ce-1761622763777.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/4ed7d5ce-1761622763777.jpg"
+    },
+    {
+      "filename": "4ffe1f30.Delivery Photo.140548.jpg",
+      "order_id": "4ffe1f30",
+      "status": "success",
+      "old_path": "Orders_Images/4ffe1f30.Delivery Photo.140548.jpg",
+      "storage_path": "4ffe1f30-1761622763781.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/4ffe1f30-1761622763781.jpg"
+    },
+    {
+      "filename": "59e8c030.Delivery Photo.144329.jpg",
+      "order_id": "59e8c030",
+      "status": "success",
+      "old_path": "Orders_Images/59e8c030.Delivery Photo.144329.jpg",
+      "storage_path": "59e8c030-1761622763785.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/59e8c030-1761622763785.jpg"
+    },
+    {
+      "filename": "5acf3dc3.Delivery Photo.161723.jpg",
+      "order_id": "5acf3dc3",
+      "status": "success",
+      "old_path": "Orders_Images/5acf3dc3.Delivery Photo.161723.jpg",
+      "storage_path": "5acf3dc3-1761622763789.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/5acf3dc3-1761622763789.jpg"
+    },
+    {
+      "filename": "5bcb2943.Delivery Photo.152837.jpg",
+      "order_id": "5bcb2943",
+      "status": "success",
+      "old_path": "Orders_Images/5bcb2943.Delivery Photo.152837.jpg",
+      "storage_path": "5bcb2943-1761622763793.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/5bcb2943-1761622763793.jpg"
+    },
+    {
+      "filename": "5bd3b771.Delivery Photo.161926.jpg",
+      "order_id": "5bd3b771",
+      "status": "success",
+      "old_path": "Orders_Images/5bd3b771.Delivery Photo.161926.jpg",
+      "storage_path": "5bd3b771-1761622763797.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/5bd3b771-1761622763797.jpg"
+    },
+    {
+      "filename": "5d1d1be5.Delivery Photo.162759.jpg",
+      "order_id": "5d1d1be5",
+      "status": "success",
+      "old_path": "Orders_Images/5d1d1be5.Delivery Photo.162759.jpg",
+      "storage_path": "5d1d1be5-1761622763802.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/5d1d1be5-1761622763802.jpg"
+    },
+    {
+      "filename": "5f42b29b.Delivery Photo.144118.jpg",
+      "order_id": "5f42b29b",
+      "status": "success",
+      "old_path": "Orders_Images/5f42b29b.Delivery Photo.144118.jpg",
+      "storage_path": "5f42b29b-1761622763806.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/5f42b29b-1761622763806.jpg"
+    },
+    {
+      "filename": "5f4770b4.Delivery Photo.171525.jpg",
+      "order_id": "5f4770b4",
+      "status": "success",
+      "old_path": "Orders_Images/5f4770b4.Delivery Photo.171525.jpg",
+      "storage_path": "5f4770b4-1761622763811.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/5f4770b4-1761622763811.jpg"
+    },
+    {
+      "filename": "65d44738.Delivery Photo.180104.jpg",
+      "order_id": "65d44738",
+      "status": "success",
+      "old_path": "Orders_Images/65d44738.Delivery Photo.180104.jpg",
+      "storage_path": "65d44738-1761622763816.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/65d44738-1761622763816.jpg"
+    },
+    {
+      "filename": "675ae3e3.Delivery Photo.140347.jpg",
+      "order_id": "675ae3e3",
+      "status": "success",
+      "old_path": "Orders_Images/675ae3e3.Delivery Photo.140347.jpg",
+      "storage_path": "675ae3e3-1761622763821.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/675ae3e3-1761622763821.jpg"
+    },
+    {
+      "filename": "69cb2b3d.Delivery Photo.183833.jpg",
+      "order_id": "69cb2b3d",
+      "status": "success",
+      "old_path": "Orders_Images/69cb2b3d.Delivery Photo.183833.jpg",
+      "storage_path": "69cb2b3d-1761622763826.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/69cb2b3d-1761622763826.jpg"
+    },
+    {
+      "filename": "702c25ba.Delivery Photo.175313.jpg",
+      "order_id": "702c25ba",
+      "status": "success",
+      "old_path": "Orders_Images/702c25ba.Delivery Photo.175313.jpg",
+      "storage_path": "702c25ba-1761622763831.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/702c25ba-1761622763831.jpg"
+    },
+    {
+      "filename": "7123437b.Delivery Photo.143529.jpg",
+      "order_id": "7123437b",
+      "status": "success",
+      "old_path": "Orders_Images/7123437b.Delivery Photo.143529.jpg",
+      "storage_path": "7123437b-1761622763836.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/7123437b-1761622763836.jpg"
+    },
+    {
+      "filename": "719b5188.Delivery Photo.164726.jpg",
+      "order_id": "719b5188",
+      "status": "success",
+      "old_path": "Orders_Images/719b5188.Delivery Photo.164726.jpg",
+      "storage_path": "719b5188-1761622763841.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/719b5188-1761622763841.jpg"
+    },
+    {
+      "filename": "7d0cdfa2.Delivery Photo.195731.jpg",
+      "order_id": "7d0cdfa2",
+      "status": "success",
+      "old_path": "Orders_Images/7d0cdfa2.Delivery Photo.195731.jpg",
+      "storage_path": "7d0cdfa2-1761622763846.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/7d0cdfa2-1761622763846.jpg"
+    },
+    {
+      "filename": "7ea58644.Delivery Photo.185654.jpg",
+      "order_id": "7ea58644",
+      "status": "success",
+      "old_path": "Orders_Images/7ea58644.Delivery Photo.185654.jpg",
+      "storage_path": "7ea58644-1761622763851.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/7ea58644-1761622763851.jpg"
+    },
+    {
+      "filename": "7f30ad7d.Delivery Photo.160534.jpg",
+      "order_id": "7f30ad7d",
+      "status": "success",
+      "old_path": "Orders_Images/7f30ad7d.Delivery Photo.160534.jpg",
+      "storage_path": "7f30ad7d-1761622763857.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/7f30ad7d-1761622763857.jpg"
+    },
+    {
+      "filename": "8249c8d8.Delivery Photo.162616.jpg",
+      "order_id": "8249c8d8",
+      "status": "success",
+      "old_path": "Orders_Images/8249c8d8.Delivery Photo.162616.jpg",
+      "storage_path": "8249c8d8-1761622763863.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8249c8d8-1761622763863.jpg"
+    },
+    {
+      "filename": "86884c82.Delivery Photo.183132.jpg",
+      "order_id": "86884c82",
+      "status": "success",
+      "old_path": "Orders_Images/86884c82.Delivery Photo.183132.jpg",
+      "storage_path": "86884c82-1761622763869.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/86884c82-1761622763869.jpg"
+    },
+    {
+      "filename": "8b761b54.Delivery Photo.213943.jpg",
+      "order_id": "8b761b54",
+      "status": "success",
+      "old_path": "Orders_Images/8b761b54.Delivery Photo.213943.jpg",
+      "storage_path": "8b761b54-1761622763877.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8b761b54-1761622763877.jpg"
+    },
+    {
+      "filename": "8be4961e.Delivery Photo.153337.jpg",
+      "order_id": "8be4961e",
+      "status": "success",
+      "old_path": "Orders_Images/8be4961e.Delivery Photo.153337.jpg",
+      "storage_path": "8be4961e-1761622763882.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8be4961e-1761622763882.jpg"
+    },
+    {
+      "filename": "8c22cc1a.Delivery Photo.193304.jpg",
+      "order_id": "8c22cc1a",
+      "status": "success",
+      "old_path": "Orders_Images/8c22cc1a.Delivery Photo.193304.jpg",
+      "storage_path": "8c22cc1a-1761622763886.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8c22cc1a-1761622763886.jpg"
+    },
+    {
+      "filename": "8c7b8b1f.Delivery Photo.190151.jpg",
+      "order_id": "8c7b8b1f",
+      "status": "success",
+      "old_path": "Orders_Images/8c7b8b1f.Delivery Photo.190151.jpg",
+      "storage_path": "8c7b8b1f-1761622763890.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8c7b8b1f-1761622763890.jpg"
+    },
+    {
+      "filename": "8e6f9758.Delivery Photo.154002.jpg",
+      "order_id": "8e6f9758",
+      "status": "success",
+      "old_path": "Orders_Images/8e6f9758.Delivery Photo.154002.jpg",
+      "storage_path": "8e6f9758-1761622763894.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8e6f9758-1761622763894.jpg"
+    },
+    {
+      "filename": "8f9a1ca6.Delivery Photo.163823.jpg",
+      "order_id": "8f9a1ca6",
+      "status": "success",
+      "old_path": "Orders_Images/8f9a1ca6.Delivery Photo.163823.jpg",
+      "storage_path": "8f9a1ca6-1761622763898.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8f9a1ca6-1761622763898.jpg"
+    },
+    {
+      "filename": "8fd931e4.Delivery Photo.175258.jpg",
+      "order_id": "8fd931e4",
+      "status": "success",
+      "old_path": "Orders_Images/8fd931e4.Delivery Photo.175258.jpg",
+      "storage_path": "8fd931e4-1761622763905.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/8fd931e4-1761622763905.jpg"
+    },
+    {
+      "filename": "908a6bf7.Delivery Photo.153049.jpg",
+      "order_id": "908a6bf7",
+      "status": "success",
+      "old_path": "Orders_Images/908a6bf7.Delivery Photo.153049.jpg",
+      "storage_path": "908a6bf7-1761622763910.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/908a6bf7-1761622763910.jpg"
+    },
+    {
+      "filename": "9ccab1c9.Delivery Photo.144059.jpg",
+      "order_id": "9ccab1c9",
+      "status": "success",
+      "old_path": "Orders_Images/9ccab1c9.Delivery Photo.144059.jpg",
+      "storage_path": "9ccab1c9-1761622763915.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/9ccab1c9-1761622763915.jpg"
+    },
+    {
+      "filename": "9f4e7e3d.Delivery Photo.163619.jpg",
+      "order_id": "9f4e7e3d",
+      "status": "success",
+      "old_path": "Orders_Images/9f4e7e3d.Delivery Photo.163619.jpg",
+      "storage_path": "9f4e7e3d-1761622763922.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/9f4e7e3d-1761622763922.jpg"
+    },
+    {
+      "filename": "9fc45053.Delivery Photo.202436.jpg",
+      "order_id": "9fc45053",
+      "status": "success",
+      "old_path": "Orders_Images/9fc45053.Delivery Photo.202436.jpg",
+      "storage_path": "9fc45053-1761622763926.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/9fc45053-1761622763926.jpg"
+    },
+    {
+      "filename": "a0b2d90a.Delivery Photo.153342.jpg",
+      "order_id": "a0b2d90a",
+      "status": "success",
+      "old_path": "Orders_Images/a0b2d90a.Delivery Photo.153342.jpg",
+      "storage_path": "a0b2d90a-1761622763930.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/a0b2d90a-1761622763930.jpg"
+    },
+    {
+      "filename": "a25bf6a1.Delivery Photo.131450.jpg",
+      "order_id": "a25bf6a1",
+      "status": "success",
+      "old_path": "Orders_Images/a25bf6a1.Delivery Photo.131450.jpg",
+      "storage_path": "a25bf6a1-1761622763936.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/a25bf6a1-1761622763936.jpg"
+    },
+    {
+      "filename": "a48e7b30.Delivery Photo.182027.jpg",
+      "order_id": "a48e7b30",
+      "status": "success",
+      "old_path": "Orders_Images/a48e7b30.Delivery Photo.182027.jpg",
+      "storage_path": "a48e7b30-1761622763943.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/a48e7b30-1761622763943.jpg"
+    },
+    {
+      "filename": "a62ed62a.Delivery Photo.163606.jpg",
+      "order_id": "a62ed62a",
+      "status": "success",
+      "old_path": "Orders_Images/a62ed62a.Delivery Photo.163606.jpg",
+      "storage_path": "a62ed62a-1761622763946.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/a62ed62a-1761622763946.jpg"
+    },
+    {
+      "filename": "a7a4a348.Delivery Photo.170432.jpg",
+      "order_id": "a7a4a348",
+      "status": "success",
+      "old_path": "Orders_Images/a7a4a348.Delivery Photo.170432.jpg",
+      "storage_path": "a7a4a348-1761622763951.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/a7a4a348-1761622763951.jpg"
+    },
+    {
+      "filename": "aabf82cb.Delivery Photo.184219.jpg",
+      "order_id": "aabf82cb",
+      "status": "success",
+      "old_path": "Orders_Images/aabf82cb.Delivery Photo.184219.jpg",
+      "storage_path": "aabf82cb-1761622763955.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/aabf82cb-1761622763955.jpg"
+    },
+    {
+      "filename": "ad2e6e8b.Delivery Photo.154407.jpg",
+      "order_id": "ad2e6e8b",
+      "status": "success",
+      "old_path": "Orders_Images/ad2e6e8b.Delivery Photo.154407.jpg",
+      "storage_path": "ad2e6e8b-1761622763959.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/ad2e6e8b-1761622763959.jpg"
+    },
+    {
+      "filename": "aea8014a.Delivery Photo.185850.jpg",
+      "order_id": "aea8014a",
+      "status": "success",
+      "old_path": "Orders_Images/aea8014a.Delivery Photo.185850.jpg",
+      "storage_path": "aea8014a-1761622763963.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/aea8014a-1761622763963.jpg"
+    },
+    {
+      "filename": "afd8a0fa.Delivery Photo.150709.jpg",
+      "order_id": "afd8a0fa",
+      "status": "success",
+      "old_path": "Orders_Images/afd8a0fa.Delivery Photo.150709.jpg",
+      "storage_path": "afd8a0fa-1761622763967.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/afd8a0fa-1761622763967.jpg"
+    },
+    {
+      "filename": "afe19ae0.Delivery Photo.165417.jpg",
+      "order_id": "afe19ae0",
+      "status": "success",
+      "old_path": "Orders_Images/afe19ae0.Delivery Photo.165417.jpg",
+      "storage_path": "afe19ae0-1761622763972.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/afe19ae0-1761622763972.jpg"
+    },
+    {
+      "filename": "b0d4a203.Delivery Photo.143340.jpg",
+      "order_id": "b0d4a203",
+      "status": "success",
+      "old_path": "Orders_Images/b0d4a203.Delivery Photo.143340.jpg",
+      "storage_path": "b0d4a203-1761622763976.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b0d4a203-1761622763976.jpg"
+    },
+    {
+      "filename": "b438dc69.Delivery Photo.163056.jpg",
+      "order_id": "b438dc69",
+      "status": "success",
+      "old_path": "Orders_Images/b438dc69.Delivery Photo.163056.jpg",
+      "storage_path": "b438dc69-1761622763982.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b438dc69-1761622763982.jpg"
+    },
+    {
+      "filename": "b4a92125.Delivery Photo.174821.jpg",
+      "order_id": "b4a92125",
+      "status": "success",
+      "old_path": "Orders_Images/b4a92125.Delivery Photo.174821.jpg",
+      "storage_path": "b4a92125-1761622763987.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b4a92125-1761622763987.jpg"
+    },
+    {
+      "filename": "b4d78c2b.Delivery Photo.134410.jpg",
+      "order_id": "b4d78c2b",
+      "status": "success",
+      "old_path": "Orders_Images/b4d78c2b.Delivery Photo.134410.jpg",
+      "storage_path": "b4d78c2b-1761622763991.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b4d78c2b-1761622763991.jpg"
+    },
+    {
+      "filename": "b7300afe.Delivery Photo.160759.jpg",
+      "order_id": "b7300afe",
+      "status": "success",
+      "old_path": "Orders_Images/b7300afe.Delivery Photo.160759.jpg",
+      "storage_path": "b7300afe-1761622763995.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b7300afe-1761622763995.jpg"
+    },
+    {
+      "filename": "b8f6649d.Delivery Photo.155146.jpg",
+      "order_id": "b8f6649d",
+      "status": "success",
+      "old_path": "Orders_Images/b8f6649d.Delivery Photo.155146.jpg",
+      "storage_path": "b8f6649d-1761622763999.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b8f6649d-1761622763999.jpg"
+    },
+    {
+      "filename": "b93803b5.Delivery Photo.144136.jpg",
+      "order_id": "b93803b5",
+      "status": "success",
+      "old_path": "Orders_Images/b93803b5.Delivery Photo.144136.jpg",
+      "storage_path": "b93803b5-1761622764004.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/b93803b5-1761622764004.jpg"
+    },
+    {
+      "filename": "ba48857d.Delivery Photo.171559.jpg",
+      "order_id": "ba48857d",
+      "status": "success",
+      "old_path": "Orders_Images/ba48857d.Delivery Photo.171559.jpg",
+      "storage_path": "ba48857d-1761622764007.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/ba48857d-1761622764007.jpg"
+    },
+    {
+      "filename": "bd3183cc.Delivery Photo.183151.jpg",
+      "order_id": "bd3183cc",
+      "status": "success",
+      "old_path": "Orders_Images/bd3183cc.Delivery Photo.183151.jpg",
+      "storage_path": "bd3183cc-1761622764011.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/bd3183cc-1761622764011.jpg"
+    },
+    {
+      "filename": "bd380368.Delivery Photo.130328.jpg",
+      "order_id": "bd380368",
+      "status": "orphan",
+      "old_path": "Orders_Images/bd380368.Delivery Photo.130328.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "bdea91c2.Delivery Photo.025044.jpg",
+      "order_id": "bdea91c2",
+      "status": "success",
+      "old_path": "Orders_Images/bdea91c2.Delivery Photo.025044.jpg",
+      "storage_path": "bdea91c2-1761622764019.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/bdea91c2-1761622764019.jpg"
+    },
+    {
+      "filename": "c0007696.Delivery Photo.190213.jpg",
+      "order_id": "c0007696",
+      "status": "success",
+      "old_path": "Orders_Images/c0007696.Delivery Photo.190213.jpg",
+      "storage_path": "c0007696-1761622764023.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c0007696-1761622764023.jpg"
+    },
+    {
+      "filename": "c1c123c0.Delivery Photo.185639.jpg",
+      "order_id": "c1c123c0",
+      "status": "success",
+      "old_path": "Orders_Images/c1c123c0.Delivery Photo.185639.jpg",
+      "storage_path": "c1c123c0-1761622764026.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c1c123c0-1761622764026.jpg"
+    },
+    {
+      "filename": "c2c0068e.Delivery Photo.184127.jpg",
+      "order_id": "c2c0068e",
+      "status": "success",
+      "old_path": "Orders_Images/c2c0068e.Delivery Photo.184127.jpg",
+      "storage_path": "c2c0068e-1761622764031.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c2c0068e-1761622764031.jpg"
+    },
+    {
+      "filename": "c48f4bec.Delivery Photo.142449.jpg",
+      "order_id": "c48f4bec",
+      "status": "success",
+      "old_path": "Orders_Images/c48f4bec.Delivery Photo.142449.jpg",
+      "storage_path": "c48f4bec-1761622764036.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c48f4bec-1761622764036.jpg"
+    },
+    {
+      "filename": "c4b81a4a.Delivery Photo.150456.jpg",
+      "order_id": "c4b81a4a",
+      "status": "success",
+      "old_path": "Orders_Images/c4b81a4a.Delivery Photo.150456.jpg",
+      "storage_path": "c4b81a4a-1761622764041.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c4b81a4a-1761622764041.jpg"
+    },
+    {
+      "filename": "c524d620.Delivery Photo.131455.jpg",
+      "order_id": "c524d620",
+      "status": "success",
+      "old_path": "Orders_Images/c524d620.Delivery Photo.131455.jpg",
+      "storage_path": "c524d620-1761622764047.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c524d620-1761622764047.jpg"
+    },
+    {
+      "filename": "c9a0e8ae.Delivery Photo.154331.jpg",
+      "order_id": "c9a0e8ae",
+      "status": "success",
+      "old_path": "Orders_Images/c9a0e8ae.Delivery Photo.154331.jpg",
+      "storage_path": "c9a0e8ae-1761622764051.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/c9a0e8ae-1761622764051.jpg"
+    },
+    {
+      "filename": "d3b24bf7.Delivery Photo.153620.jpg",
+      "order_id": "d3b24bf7",
+      "status": "success",
+      "old_path": "Orders_Images/d3b24bf7.Delivery Photo.153620.jpg",
+      "storage_path": "d3b24bf7-1761622764056.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/d3b24bf7-1761622764056.jpg"
+    },
+    {
+      "filename": "d870ec70.Delivery Photo.151558.jpg",
+      "order_id": "d870ec70",
+      "status": "success",
+      "old_path": "Orders_Images/d870ec70.Delivery Photo.151558.jpg",
+      "storage_path": "d870ec70-1761622764060.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/d870ec70-1761622764060.jpg"
+    },
+    {
+      "filename": "db668d3f.Delivery Photo.145208.jpg",
+      "order_id": "db668d3f",
+      "status": "success",
+      "old_path": "Orders_Images/db668d3f.Delivery Photo.145208.jpg",
+      "storage_path": "db668d3f-1761622764064.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/db668d3f-1761622764064.jpg"
+    },
+    {
+      "filename": "e6451cfa.Delivery Photo.175014.jpg",
+      "order_id": "e6451cfa",
+      "status": "success",
+      "old_path": "Orders_Images/e6451cfa.Delivery Photo.175014.jpg",
+      "storage_path": "e6451cfa-1761622764068.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/e6451cfa-1761622764068.jpg"
+    },
+    {
+      "filename": "e7f91635.Delivery Photo.141642.jpg",
+      "order_id": "e7f91635",
+      "status": "success",
+      "old_path": "Orders_Images/e7f91635.Delivery Photo.141642.jpg",
+      "storage_path": "e7f91635-1761622764072.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/e7f91635-1761622764072.jpg"
+    },
+    {
+      "filename": "e8a75e53.Delivery Photo.130506.jpg",
+      "order_id": "e8a75e53",
+      "status": "success",
+      "old_path": "Orders_Images/e8a75e53.Delivery Photo.130506.jpg",
+      "storage_path": "e8a75e53-1761622764075.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/e8a75e53-1761622764075.jpg"
+    },
+    {
+      "filename": "ee2a0263.Delivery Photo.144503.jpg",
+      "order_id": "ee2a0263",
+      "status": "success",
+      "old_path": "Orders_Images/ee2a0263.Delivery Photo.144503.jpg",
+      "storage_path": "ee2a0263-1761622764079.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/ee2a0263-1761622764079.jpg"
+    },
+    {
+      "filename": "f071bb3b.Delivery Photo.154222.jpg",
+      "order_id": "f071bb3b",
+      "status": "success",
+      "old_path": "Orders_Images/f071bb3b.Delivery Photo.154222.jpg",
+      "storage_path": "f071bb3b-1761622764083.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f071bb3b-1761622764083.jpg"
+    },
+    {
+      "filename": "f2558ba5.Delivery Photo.163529.jpg",
+      "order_id": "f2558ba5",
+      "status": "success",
+      "old_path": "Orders_Images/f2558ba5.Delivery Photo.163529.jpg",
+      "storage_path": "f2558ba5-1761622764092.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f2558ba5-1761622764092.jpg"
+    },
+    {
+      "filename": "f2ef1072.Delivery Photo.140800.jpg",
+      "order_id": "f2ef1072",
+      "status": "success",
+      "old_path": "Orders_Images/f2ef1072.Delivery Photo.140800.jpg",
+      "storage_path": "f2ef1072-1761622764098.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f2ef1072-1761622764098.jpg"
+    },
+    {
+      "filename": "f2f7afba.Delivery Photo.160846.jpg",
+      "order_id": "f2f7afba",
+      "status": "success",
+      "old_path": "Orders_Images/f2f7afba.Delivery Photo.160846.jpg",
+      "storage_path": "f2f7afba-1761622764102.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f2f7afba-1761622764102.jpg"
+    },
+    {
+      "filename": "f4d44f42.Delivery Photo.165054.jpg",
+      "order_id": "f4d44f42",
+      "status": "success",
+      "old_path": "Orders_Images/f4d44f42.Delivery Photo.165054.jpg",
+      "storage_path": "f4d44f42-1761622764106.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f4d44f42-1761622764106.jpg"
+    },
+    {
+      "filename": "f84061f9.Delivery Photo.152547.jpg",
+      "order_id": "f84061f9",
+      "status": "success",
+      "old_path": "Orders_Images/f84061f9.Delivery Photo.152547.jpg",
+      "storage_path": "f84061f9-1761622764111.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f84061f9-1761622764111.jpg"
+    },
+    {
+      "filename": "f8d57290.Delivery Photo.161049.jpg",
+      "order_id": "f8d57290",
+      "status": "success",
+      "old_path": "Orders_Images/f8d57290.Delivery Photo.161049.jpg",
+      "storage_path": "f8d57290-1761622764116.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/f8d57290-1761622764116.jpg"
+    },
+    {
+      "filename": "fccc4313.Delivery Photo.151533.jpg",
+      "order_id": "fccc4313",
+      "status": "success",
+      "old_path": "Orders_Images/fccc4313.Delivery Photo.151533.jpg",
+      "storage_path": "fccc4313-1761622764121.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/fccc4313-1761622764121.jpg"
+    },
+    {
+      "filename": "fff4e4e9.Delivery Photo.153955.jpg",
+      "order_id": "fff4e4e9",
+      "status": "success",
+      "old_path": "Orders_Images/fff4e4e9.Delivery Photo.153955.jpg",
+      "storage_path": "fff4e4e9-1761622764124.jpg",
+      "public_url": "https://api.loopia.cl/storage/v1/object/public/delivery-photos/fff4e4e9-1761622764124.jpg"
+    }
+  ],
+  "errors": []
+}

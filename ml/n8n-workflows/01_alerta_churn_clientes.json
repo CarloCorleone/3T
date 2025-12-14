@@ -1,0 +1,261 @@
+{
+  "name": "ML - Alerta Churn Clientes",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d7eb1f00-start",
+      "name": "Inicio Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysOfMonth": [
+                {
+                  "value": "1,15"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Ejecutar Quincenalmente",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 450]
+    },
+    {
+      "parameters": {
+        "url": "=http://localhost:8001/predict/churn/all",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "threshold",
+              "value": "0.7"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-ml-api",
+      "name": "Obtener Predicciones Churn",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [500, 380]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.high_risk_customers }}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "if-has-risk",
+      "name": "¿Hay Clientes en Riesgo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [750, 380]
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "operation": "get"
+      },
+      "id": "supabase-customers",
+      "name": "Obtener Datos de Clientes",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [1000, 280],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1",
+          "name": "Supabase API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#ventas",
+        "text": "=🚨 **ALERTA DE CHURN DETECTADA**\n\nSe han identificado *{{ $json.high_risk_customers }}* clientes en alto riesgo de abandono.\n\n*Top 3 Clientes en Riesgo:*\n{{ $json.top_3_customers }}\n\n*Valor Total en Riesgo:* ${{ $json.total_value_at_risk }}\n\n_Revisa el dashboard ML para más detalles: http://localhost:3000/ml-insights_",
+        "otherOptions": {}
+      },
+      "id": "slack-alert",
+      "name": "Enviar Alerta a Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [1250, 280],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "to": "ventas@aguatrestorres.cl",
+        "subject": "🚨 Alerta de Churn - Clientes en Riesgo",
+        "emailType": "html",
+        "message": "=<h2>Alerta de Churn Detectada</h2>\n<p>El sistema ML ha identificado <strong>{{ $json.high_risk_customers }} clientes</strong> en alto riesgo de abandono.</p>\n\n<h3>Top Clientes en Riesgo</h3>\n<table border=\"1\" cellpadding=\"10\">\n<tr><th>Cliente</th><th>Probabilidad Churn</th><th>Valor</th><th>Días sin Comprar</th></tr>\n{{ $json.top_customers_table }}\n</table>\n\n<p><strong>Valor Total en Riesgo:</strong> ${{ $json.total_value_at_risk }}</p>\n\n<p>Revisa el <a href=\"http://localhost:3000/ml-insights\">Dashboard ML</a> para más detalles.</p>\n\n<hr>\n<p><small>Este es un mensaje automático del Sistema ML de Agua Tres Torres</small></p>",
+        "options": {}
+      },
+      "id": "email-alert",
+      "name": "Enviar Email a Ventas",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1250, 450],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "3t_activity_log",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "event_type",
+              "fieldValue": "churn_alert"
+            },
+            {
+              "fieldId": "description",
+              "fieldValue": "={{ $json.high_risk_customers }} clientes en riesgo detectados"
+            },
+            {
+              "fieldId": "metadata",
+              "fieldValue": "={{ JSON.stringify($json) }}"
+            }
+          ]
+        }
+      },
+      "id": "supabase-log",
+      "name": "Registrar en Activity Log",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [1500, 380],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1",
+          "name": "Supabase API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Inicio Manual": {
+      "main": [
+        [
+          {
+            "node": "Obtener Predicciones Churn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar Quincenalmente": {
+      "main": [
+        [
+          {
+            "node": "Obtener Predicciones Churn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Predicciones Churn": {
+      "main": [
+        [
+          {
+            "node": "¿Hay Clientes en Riesgo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay Clientes en Riesgo?": {
+      "main": [
+        [
+          {
+            "node": "Obtener Datos de Clientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Datos de Clientes": {
+      "main": [
+        [
+          {
+            "node": "Enviar Alerta a Slack",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar Email a Ventas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Alerta a Slack": {
+      "main": [
+        [
+          {
+            "node": "Registrar en Activity Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email a Ventas": {
+      "main": [
+        [
+          {
+            "node": "Registrar en Activity Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "tags": [
+    {
+      "name": "ML",
+      "id": "ml-tag"
+    },
+    {
+      "name": "Alertas",
+      "id": "alerts-tag"
+    }
+  ]
+}
+

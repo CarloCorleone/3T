@@ -1,0 +1,214 @@
+{
+  "name": "ML - Predicción de Próxima Compra",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Inicio Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "schedule-weekly",
+      "name": "Ejecutar Semanalmente (Lunes 8AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 450]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8001/predict/demand/7",
+        "method": "GET",
+        "options": {}
+      },
+      "id": "http-ml-forecast",
+      "name": "Obtener Forecast Semanal",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [500, 380]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  customer_id,\n  customer_name,\n  email_customer,\n  phone_customer,\n  COUNT(order_id) as total_orders,\n  MAX(order_date) as last_order_date,\n  AVG(final_price) as avg_order_value,\n  SUM(final_price) as total_value\nFROM \"3t_orders\"\nJOIN \"3t_customers\" USING (customer_id)\nWHERE order_date >= CURRENT_DATE - INTERVAL '90 days'\nGROUP BY customer_id, customer_name, email_customer, phone_customer\nORDER BY total_value DESC\nLIMIT 50"
+      },
+      "id": "supabase-top-customers",
+      "name": "Obtener Top 50 Clientes",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [750, 380],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1",
+          "name": "Supabase API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Procesar forecast y clientes\nconst forecast = $input.first().json;\nconst customers = $input.all().map(item => item.json);\n\n// Calcular días óptimos para contactar cada cliente\nconst recommendations = customers.map(customer => {\n  const daysSinceLastOrder = Math.floor(\n    (new Date() - new Date(customer.last_order_date)) / (1000 * 60 * 60 * 24)\n  );\n  \n  // Estimar probabilidad de compra según patrón histórico\n  const avgDaysBetweenOrders = 90 / customer.total_orders;\n  const daysSinceExpectedOrder = daysSinceLastOrder - avgDaysBetweenOrders;\n  \n  // Probabilidad de compra (simplificada)\n  let purchaseProbability = 0;\n  if (daysSinceExpectedOrder >= 0) {\n    purchaseProbability = Math.min(0.9, 0.3 + (daysSinceExpectedOrder / avgDaysBetweenOrders) * 0.6);\n  } else {\n    purchaseProbability = 0.1;\n  }\n  \n  return {\n    customer_id: customer.customer_id,\n    customer_name: customer.customer_name,\n    email: customer.email_customer,\n    phone: customer.phone_customer,\n    last_order_date: customer.last_order_date,\n    days_since_last_order: daysSinceLastOrder,\n    purchase_probability: Math.round(purchaseProbability * 100),\n    estimated_value: Math.round(customer.avg_order_value),\n    recommended_contact_day: daysSinceExpectedOrder >= 0 ? 'HOY' : `En ${Math.abs(daysSinceExpectedOrder)} días`,\n    priority: purchaseProbability > 0.7 ? 'ALTA' : purchaseProbability > 0.4 ? 'MEDIA' : 'BAJA'\n  };\n});\n\n// Filtrar solo clientes con probabilidad > 40%\nconst highProbability = recommendations.filter(r => r.purchase_probability > 40);\n\nreturn {\n  json: {\n    forecast_summary: {\n      avg_daily_orders: Math.round(forecast.summary.avg_daily_orders),\n      total_predicted_orders: forecast.summary.total_predicted_orders,\n      peak_day: forecast.summary.peak_day\n    },\n    high_probability_customers: highProbability.length,\n    recommendations: highProbability.sort((a, b) => b.purchase_probability - a.purchase_probability)\n  }\n};"
+      },
+      "id": "code-process",
+      "name": "Procesar Predicciones",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 380]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.high_probability_customers }}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "if-has-predictions",
+      "name": "¿Hay Predicciones?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1250, 380]
+    },
+    {
+      "parameters": {
+        "to": "ventas@aguatrestorres.cl",
+        "subject": "📊 Reporte Semanal - Predicción de Compras",
+        "emailType": "html",
+        "message": "=<h2>Reporte de Predicción de Compras</h2>\n\n<h3>📈 Forecast para Esta Semana</h3>\n<ul>\n  <li><strong>Pedidos Esperados:</strong> {{ $json.forecast_summary.total_predicted_orders }} pedidos</li>\n  <li><strong>Promedio Diario:</strong> {{ $json.forecast_summary.avg_daily_orders }} pedidos/día</li>\n  <li><strong>Día Pico:</strong> {{ $json.forecast_summary.peak_day }}</li>\n</ul>\n\n<h3>🎯 Clientes con Alta Probabilidad de Compra</h3>\n<p>Hemos identificado <strong>{{ $json.high_probability_customers }} clientes</strong> con alta probabilidad de comprar esta semana.</p>\n\n<table border=\"1\" cellpadding=\"8\" style=\"border-collapse: collapse; width: 100%;\">\n<tr style=\"background-color: #f0f0f0;\">\n  <th>Cliente</th>\n  <th>Probabilidad</th>\n  <th>Valor Estimado</th>\n  <th>Días sin Comprar</th>\n  <th>Prioridad</th>\n  <th>Acción</th>\n</tr>\n{{ $json.recommendations.slice(0, 10).map(r => `\n<tr>\n  <td>${r.customer_name}</td>\n  <td>${r.purchase_probability}%</td>\n  <td>$${r.estimated_value.toLocaleString()}</td>\n  <td>${r.days_since_last_order} días</td>\n  <td style=\"color: ${r.priority === 'ALTA' ? 'red' : r.priority === 'MEDIA' ? 'orange' : 'green'};\">${r.priority}</td>\n  <td>${r.recommended_contact_day}</td>\n</tr>\n`).join('') }}\n</table>\n\n<p><small>Este reporte fue generado automáticamente por el Sistema ML de Agua Tres Torres</small></p>",
+        "options": {}
+      },
+      "id": "email-report",
+      "name": "Enviar Reporte a Ventas",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1500, 280],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#ventas",
+        "text": "=📊 **Reporte de Predicción de Compras**\n\n*Forecast Esta Semana:*\n• Pedidos esperados: {{ $json.forecast_summary.total_predicted_orders }}\n• Promedio diario: {{ $json.forecast_summary.avg_daily_orders }}\n• Día pico: {{ $json.forecast_summary.peak_day }}\n\n*Oportunidades:*\n• {{ $json.high_probability_customers }} clientes con alta probabilidad de compra\n\n_Revisa el reporte completo en tu email_ 📧",
+        "otherOptions": {}
+      },
+      "id": "slack-notify",
+      "name": "Notificar a Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [1500, 480],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Inicio Manual": {
+      "main": [
+        [
+          {
+            "node": "Obtener Forecast Semanal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar Semanalmente (Lunes 8AM)": {
+      "main": [
+        [
+          {
+            "node": "Obtener Forecast Semanal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Forecast Semanal": {
+      "main": [
+        [
+          {
+            "node": "Obtener Top 50 Clientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Top 50 Clientes": {
+      "main": [
+        [
+          {
+            "node": "Procesar Predicciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procesar Predicciones": {
+      "main": [
+        [
+          {
+            "node": "¿Hay Predicciones?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay Predicciones?": {
+      "main": [
+        [
+          {
+            "node": "Enviar Reporte a Ventas",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notificar a Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "tags": [
+    {
+      "name": "ML",
+      "id": "ml-tag"
+    },
+    {
+      "name": "Reportes",
+      "id": "reports-tag"
+    }
+  ]
+}
+

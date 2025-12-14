@@ -1,0 +1,203 @@
+{
+  "name": "Chatbot 3t - Dual Agent (Principal + SQL)",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "chat-trigger",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-5-20250929",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 1000
+        }
+      },
+      "id": "claude-principal",
+      "name": "Claude Principal (Conversacional)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [460, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-cred",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableName": "n8n_chat_histories",
+        "sessionIdType": "fromInput",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "id": "postgres-memory",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [460, 480],
+      "credentials": {
+        "postgres": {
+          "id": "postgres-cred",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Determinar si Claude Principal necesita consultar la base de datos\nconst userMessage = $input.first().json.chatInput;\nconst claudeResponse = $('Claude Principal (Conversacional)').first().json;\n\n// Buscar si Claude menciona que necesita consultar DB\nconst needsDBQuery = claudeResponse.output && \n  (claudeResponse.output.includes('[QUERY_DB]') || \n   claudeResponse.output.includes('necesito consultar'));\n\nif (needsDBQuery) {\n  // Claude necesita consultar - pasar a branch SQL\n  return [[\n    {\n      json: {\n        originalMessage: userMessage,\n        claudeContext: claudeResponse.output,\n        needsDB: true\n      }\n    }\n  ]];\n} else {\n  // Claude puede responder directamente - ir a respuesta final\n  return [null, [\n    {\n      json: {\n        response: claudeResponse.output,\n        needsDB: false\n      }\n    }\n  ]];\n}"
+      },
+      "id": "check-needs-db",
+      "name": "¿Necesita consultar DB?",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-5-20250929",
+        "options": {
+          "temperature": 0,
+          "maxTokens": 500,
+          "systemMessage": "{{ $json.sqlSystemPrompt }}"
+        }
+      },
+      "id": "claude-sql",
+      "name": "Claude SQL (Especializado)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [900, 200],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-cred",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Preparar prompt para Claude SQL\nconst userMessage = $input.first().json.originalMessage;\n\nconst sqlSystemPrompt = `Eres un experto en SQL para PostgreSQL. Tu ÚNICA tarea es generar consultas SQL precisas.\n\nREGLA CRÍTICA: TODAS las tablas empiezan con \"3t_\" y DEBEN usar comillas dobles.\n✅ CORRECTO: SELECT * FROM \"3t_orders\" WHERE status = 'Ruta' LIMIT 10;\n❌ INCORRECTO: SELECT * FROM 3t_orders\n\nSCHEMA PRINCIPAL:\n\n\"3t_orders\": order_id, customer_id, delivery_address_id, status ('Pedido', 'Ruta', 'Despachado'), payment_status ('Pendiente', 'Pagado'), final_price, order_date, quantity\n\"3t_customers\": customer_id, name, phone, email, customer_type ('Hogar', 'Empresa')\n\"3t_addresses\": address_id, customer_id, raw_address, commune\n\nREGLAS:\n1. SIEMPRE usar comillas dobles: \"3t_orders\"\n2. SIEMPRE agregar LIMIT (máximo 50)\n3. Para búsquedas: usar ILIKE\n4. Fechas: CURRENT_DATE, DATE_TRUNC\n\nDEVUELVE SOLO EL SQL, sin explicaciones. Ejemplo:\nSELECT order_id, c.name FROM \"3t_orders\" o JOIN \"3t_customers\" c ON o.customer_id = c.customer_id WHERE o.status = 'Ruta' LIMIT 10;`;\n\nreturn [{\n  json: {\n    userMessage: userMessage,\n    sqlSystemPrompt: sqlSystemPrompt\n  }\n}];"
+      },
+      "id": "prepare-sql-prompt",
+      "name": "Preparar Prompt SQL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extraer SQL limpio del output de Claude SQL\nconst claudeSQLOutput = $input.first().json.output || $input.first().json.text || '';\n\nlet sqlQuery = claudeSQLOutput.trim();\n\n// Remover bloques de código markdown si existen\nconst sqlMatch = sqlQuery.match(/```sql\\n([\\s\\S]*?)\\n```/) || \n                 sqlQuery.match(/```([\\s\\S]*?)```/);\n\nif (sqlMatch) {\n  sqlQuery = sqlMatch[1].trim();\n}\n\n// Limpiar caracteres problemáticos\nsqlQuery = sqlQuery.replace(/^\\/\\*.*?\\*\\//g, '').trim();\n\n// Validar que sea SELECT (seguridad básica)\nif (!sqlQuery.toUpperCase().startsWith('SELECT')) {\n  throw new Error('Solo se permiten consultas SELECT');\n}\n\nreturn [{\n  json: {\n    query: sqlQuery,\n    originalOutput: claudeSQLOutput\n  }\n}];"
+      },
+      "id": "extract-sql",
+      "name": "Extraer SQL Limpio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.query }}"
+      },
+      "id": "execute-postgres",
+      "name": "Ejecutar Query",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [900, 400],
+      "credentials": {
+        "postgres": {
+          "id": "postgres-cred",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Formatear resultados para Claude Principal\nconst sqlResults = $input.all();\nconst originalMessage = $('¿Necesita consultar DB?').first().json.originalMessage;\nconst executedQuery = $('Extraer SQL Limpio').first().json.query;\n\nlet formattedResults = '';\n\nif (sqlResults.length === 0) {\n  formattedResults = 'No se encontraron resultados.';\n} else if (sqlResults.length === 1 && sqlResults[0].json.count !== undefined) {\n  // Es un COUNT\n  formattedResults = `Total: ${sqlResults[0].json.count}`;\n} else {\n  // Formatear resultados como texto\n  formattedResults = `Encontré ${sqlResults.length} resultado(s):\\n\\n`;\n  sqlResults.slice(0, 10).forEach((result, i) => {\n    formattedResults += `${i + 1}. ${JSON.stringify(result.json, null, 2)}\\n`;\n  });\n  \n  if (sqlResults.length > 10) {\n    formattedResults += `\\n... y ${sqlResults.length - 10} más.`;\n  }\n}\n\nreturn [{\n  json: {\n    originalMessage: originalMessage,\n    sqlQuery: executedQuery,\n    results: formattedResults,\n    rawResults: sqlResults\n  }\n}];"
+      },
+      "id": "format-db-results",
+      "name": "Formatear Resultados DB",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-5-20250929",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 500,
+          "systemMessage": "Convierte estos resultados de base de datos en una respuesta natural y amigable para el usuario. Usa emojis apropiados (📦, 🚚, 💰). Sé conciso."
+        }
+      },
+      "id": "claude-format-response",
+      "name": "Claude Formatea Respuesta",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [1120, 400],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-cred",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Combinar respuesta directa o respuesta con DB\nconst checkNode = $('¿Necesita consultar DB?').all();\n\nlet finalResponse = '';\n\nif (checkNode.length > 0 && checkNode[0].json.needsDB === false) {\n  // Respuesta directa de Claude Principal\n  finalResponse = checkNode[0].json.response;\n} else {\n  // Respuesta formateada después de consultar DB\n  const claudeFormatted = $('Claude Formatea Respuesta').first().json;\n  finalResponse = claudeFormatted.output || claudeFormatted.text || 'Error al formatear respuesta';\n}\n\nreturn [{\n  json: {\n    response: finalResponse,\n    timestamp: new Date().toISOString(),\n    success: true\n  }\n}];"
+      },
+      "id": "final-response",
+      "name": "Respuesta Final",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 300]
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [[{ "node": "Claude Principal (Conversacional)", "type": "main", "index": 0 }]]
+    },
+    "Claude Principal (Conversacional)": {
+      "main": [[{ "node": "¿Necesita consultar DB?", "type": "main", "index": 0 }]]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [[{ "node": "Claude Principal (Conversacional)", "type": "ai_memory", "index": 0 }]]
+    },
+    "¿Necesita consultar DB?": {
+      "main": [
+        [{ "node": "Preparar Prompt SQL", "type": "main", "index": 0 }],
+        [{ "node": "Respuesta Final", "type": "main", "index": 0 }]
+      ]
+    },
+    "Preparar Prompt SQL": {
+      "main": [[{ "node": "Claude SQL (Especializado)", "type": "main", "index": 0 }]]
+    },
+    "Claude SQL (Especializado)": {
+      "main": [[{ "node": "Extraer SQL Limpio", "type": "main", "index": 0 }]]
+    },
+    "Extraer SQL Limpio": {
+      "main": [[{ "node": "Ejecutar Query", "type": "main", "index": 0 }]]
+    },
+    "Ejecutar Query": {
+      "main": [[{ "node": "Formatear Resultados DB", "type": "main", "index": 0 }]]
+    },
+    "Formatear Resultados DB": {
+      "main": [[{ "node": "Claude Formatea Respuesta", "type": "main", "index": 0 }]]
+    },
+    "Claude Formatea Respuesta": {
+      "main": [[{ "node": "Respuesta Final", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
+
+

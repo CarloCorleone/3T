@@ -1,0 +1,365 @@
+{
+  "name": "ML - Re-entrenamiento Mensual Automático",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-start",
+      "name": "Inicio Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysOfMonth": [
+                {
+                  "value": "1"
+                }
+              ],
+              "hoursOfDay": [
+                {
+                  "value": "2"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "schedule-monthly",
+      "name": "Ejecutar Mensualmente (1° día, 2AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 450]
+    },
+    {
+      "parameters": {
+        "channel": "#desarrollo",
+        "text": "🔄 **Iniciando Re-entrenamiento Mensual de Modelos ML**\n\n_Esto puede tomar 10-15 minutos..._\n\nEstado: En progreso ⏳",
+        "otherOptions": {}
+      },
+      "id": "slack-start",
+      "name": "Notificar Inicio (Slack)",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [500, 380],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "cd /opt/cane/3t/ml && source venv/bin/activate && python src/retrain_pipeline.py"
+      },
+      "id": "exec-retrain",
+      "name": "Ejecutar Pipeline de Re-entrenamiento",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [750, 380]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.exitCode }}",
+              "operation": "equal",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "if-success",
+      "name": "¿Exitoso?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1000, 380]
+    },
+    {
+      "parameters": {
+        "command": "ls -lh /opt/cane/3t/ml/models/ | grep -E '\\.pkl$' | awk '{print $9, $5}'"
+      },
+      "id": "exec-list-models",
+      "name": "Listar Modelos Actualizados",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1250, 280]
+    },
+    {
+      "parameters": {
+        "command": "ls -lt /opt/cane/3t/ml/reports/retrain_*.md | head -1 | awk '{print $NF}' | xargs cat"
+      },
+      "id": "exec-get-report",
+      "name": "Obtener Reporte",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1500, 280]
+    },
+    {
+      "parameters": {
+        "channel": "#desarrollo",
+        "text": "=✅ **Re-entrenamiento Completado Exitosamente**\n\n*Modelos Actualizados:*\n```\n{{ $node[\"Listar Modelos Actualizados\"].json.stdout }}\n```\n\n*Reporte:*\n```\n{{ $node[\"Obtener Reporte\"].json.stdout.substring(0, 500) }}...\n```\n\n_Revisa el reporte completo en: `/opt/cane/3t/ml/reports/`_\n\n⚠️ **Acción requerida:** Reinicia la API ML para usar los nuevos modelos:\n```\ncd /opt/cane/3t/ml && ./START_API.sh\n```",
+        "otherOptions": {}
+      },
+      "id": "slack-success",
+      "name": "Notificar Éxito (Slack)",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [1750, 280],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "to": "dev@aguatrestorres.cl",
+        "subject": "✅ Re-entrenamiento ML Completado",
+        "emailType": "html",
+        "message": "=<h2>Re-entrenamiento de Modelos ML Completado</h2>\n\n<p><strong>Estado:</strong> ✅ Exitoso</p>\n<p><strong>Fecha:</strong> {{ $now.format('YYYY-MM-DD HH:mm:ss') }}</p>\n\n<h3>Modelos Actualizados</h3>\n<pre>\n{{ $node[\"Listar Modelos Actualizados\"].json.stdout }}\n</pre>\n\n<h3>Reporte Resumido</h3>\n<pre>\n{{ $node[\"Obtener Reporte\"].json.stdout }}\n</pre>\n\n<hr>\n<p><strong>Próximos Pasos:</strong></p>\n<ol>\n  <li>Reiniciar API ML: <code>cd /opt/cane/3t/ml && ./START_API.sh</code></li>\n  <li>Verificar predicciones en dashboard: http://localhost:3000/ml-insights</li>\n  <li>Monitorear logs de la API</li>\n</ol>\n\n<p><small>Este reporte fue generado automáticamente por n8n</small></p>",
+        "options": {}
+      },
+      "id": "email-success",
+      "name": "Enviar Email Éxito",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1750, 450],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#desarrollo",
+        "text": "=❌ **Error en Re-entrenamiento de Modelos ML**\n\n*Código de Salida:* {{ $node[\"Ejecutar Pipeline de Re-entrenamiento\"].json.exitCode }}\n\n*Error:*\n```\n{{ $node[\"Ejecutar Pipeline de Re-entrenamiento\"].json.stderr }}\n```\n\n⚠️ **Acción requerida:** Revisar logs y ejecutar manualmente:\n```\ncd /opt/cane/3t/ml && source venv/bin/activate && python src/retrain_pipeline.py\n```\n\n_Logs en: `/opt/cane/3t/ml/reports/`_",
+        "otherOptions": {}
+      },
+      "id": "slack-error",
+      "name": "Notificar Error (Slack)",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [1250, 480],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "to": "dev@aguatrestorres.cl",
+        "subject": "❌ Error en Re-entrenamiento ML",
+        "emailType": "html",
+        "message": "=<h2 style=\"color: red;\">Error en Re-entrenamiento de Modelos ML</h2>\n\n<p><strong>Estado:</strong> ❌ Fallido</p>\n<p><strong>Fecha:</strong> {{ $now.format('YYYY-MM-DD HH:mm:ss') }}</p>\n<p><strong>Código de Salida:</strong> {{ $node[\"Ejecutar Pipeline de Re-entrenamiento\"].json.exitCode }}</p>\n\n<h3>Error</h3>\n<pre style=\"background: #f0f0f0; padding: 10px; border-left: 4px solid red;\">\n{{ $node[\"Ejecutar Pipeline de Re-entrenamiento\"].json.stderr || 'No stderr disponible' }}\n</pre>\n\n<h3>stdout</h3>\n<pre style=\"background: #f0f0f0; padding: 10px;\">\n{{ $node[\"Ejecutar Pipeline de Re-entrenamiento\"].json.stdout || 'No stdout disponible' }}\n</pre>\n\n<hr>\n<p><strong>Acción Requerida:</strong></p>\n<ol>\n  <li>Revisar logs en: <code>/opt/cane/3t/ml/reports/</code></li>\n  <li>Ejecutar manualmente: <code>cd /opt/cane/3t/ml && source venv/bin/activate && python src/retrain_pipeline.py</code></li>\n  <li>Contactar al equipo de desarrollo si persiste el error</li>\n</ol>\n\n<p><small>Este reporte fue generado automáticamente por n8n</small></p>",
+        "options": {}
+      },
+      "id": "email-error",
+      "name": "Enviar Email Error",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1500, 480],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "3t_activity_log",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "event_type",
+              "fieldValue": "ml_retrain"
+            },
+            {
+              "fieldId": "description",
+              "fieldValue": "=Re-entrenamiento {{ $node[\"¿Exitoso?\"].json.condition ? 'exitoso' : 'fallido' }}"
+            },
+            {
+              "fieldId": "metadata",
+              "fieldValue": "={{ JSON.stringify($node[\"Ejecutar Pipeline de Re-entrenamiento\"].json) }}"
+            }
+          ]
+        }
+      },
+      "id": "supabase-log",
+      "name": "Registrar en Activity Log",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [2000, 380],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1",
+          "name": "Supabase API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Inicio Manual": {
+      "main": [
+        [
+          {
+            "node": "Notificar Inicio (Slack)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar Mensualmente (1° día, 2AM)": {
+      "main": [
+        [
+          {
+            "node": "Notificar Inicio (Slack)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar Inicio (Slack)": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar Pipeline de Re-entrenamiento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar Pipeline de Re-entrenamiento": {
+      "main": [
+        [
+          {
+            "node": "¿Exitoso?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Exitoso?": {
+      "main": [
+        [
+          {
+            "node": "Listar Modelos Actualizados",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notificar Error (Slack)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listar Modelos Actualizados": {
+      "main": [
+        [
+          {
+            "node": "Obtener Reporte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Reporte": {
+      "main": [
+        [
+          {
+            "node": "Notificar Éxito (Slack)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar Email Éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar Éxito (Slack)": {
+      "main": [
+        [
+          {
+            "node": "Registrar en Activity Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email Éxito": {
+      "main": [
+        [
+          {
+            "node": "Registrar en Activity Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar Error (Slack)": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email Error": {
+      "main": [
+        [
+          {
+            "node": "Registrar en Activity Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "tags": [
+    {
+      "name": "ML",
+      "id": "ml-tag"
+    },
+    {
+      "name": "Mantenimiento",
+      "id": "maintenance-tag"
+    }
+  ]
+}
+

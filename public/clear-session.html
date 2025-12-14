@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limpiar Sesión - Agua Tres Torres</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #0e7490;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .button {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 15px;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(8, 145, 178, 0.4);
+    }
+    
+    .button:active {
+      transform: translateY(0);
+    }
+    
+    .button.secondary {
+      background: white;
+      color: #0891b2;
+      border: 2px solid #0891b2;
+    }
+    
+    .status {
+      margin-top: 30px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+    
+    .status.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+      display: block;
+    }
+    
+    .status.info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+      display: block;
+    }
+    
+    .details {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9fafb;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none;
+    }
+    
+    .details.show {
+      display: block;
+    }
+    
+    .details h3 {
+      font-size: 14px;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+    
+    .details ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .details li {
+      padding: 5px 0;
+      color: #6b7280;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/images/logos/logo-cuadrado-250x250.png" alt="Agua Tres Torres" class="logo">
+    
+    <h1>🔧 Utilidad de Limpieza</h1>
+    <p>
+      Si tienes problemas para iniciar sesión después de hacer logout,
+      esta herramienta limpiará completamente tu sesión y datos almacenados.
+    </p>
+    
+    <button class="button" onclick="clearSession()">
+      🗑️ Limpiar Sesión Completa
+    </button>
+    
+    <button class="button secondary" onclick="showStorageInfo()">
+      ℹ️ Ver Datos Almacenados
+    </button>
+    
+    <div id="status" class="status"></div>
+    <div id="details" class="details"></div>
+  </div>
+
+  <script>
+    function clearSession() {
+      const statusEl = document.getElementById('status');
+      const detailsEl = document.getElementById('details');
+      
+      // Contar elementos a eliminar
+      let removedCount = 0;
+      let cookiesCount = 0;
+      
+      // 1. Limpiar localStorage
+      const localStorageKeys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key) {
+          localStorageKeys.push(key);
+          if (key.includes('supabase')) {
+            removedCount++;
+          }
+        }
+      }
+      
+      localStorageKeys.forEach(key => {
+        if (key.includes('supabase')) {
+          localStorage.removeItem(key);
+        }
+      });
+      
+      // 2. Limpiar sessionStorage
+      const sessionStorageKeys = [];
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        if (key) {
+          sessionStorageKeys.push(key);
+          if (key.includes('supabase')) {
+            removedCount++;
+          }
+        }
+      }
+      
+      sessionStorageKeys.forEach(key => {
+        if (key.includes('supabase')) {
+          sessionStorage.removeItem(key);
+        }
+      });
+      
+      // 3. Limpiar cookies
+      const cookies = document.cookie.split(";");
+      cookiesCount = cookies.length;
+      
+      cookies.forEach((c) => {
+        document.cookie = c
+          .replace(/^ +/, "")
+          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      
+      // Mostrar resultado
+      statusEl.className = 'status success';
+      statusEl.innerHTML = `
+        ✅ <strong>Sesión limpiada exitosamente</strong><br>
+        <small>
+          • ${removedCount} claves de localStorage/sessionStorage eliminadas<br>
+          • ${cookiesCount} cookies limpiadas<br>
+          • Cache del navegador limpiado
+        </small>
+      `;
+      
+      detailsEl.className = 'details';
+      detailsEl.innerHTML = '';
+      
+      // Mostrar botón para recargar
+      setTimeout(() => {
+        if (confirm('¿Deseas recargar la página para aplicar los cambios?')) {
+          window.location.href = '/login';
+        }
+      }, 1500);
+    }
+    
+    function showStorageInfo() {
+      const statusEl = document.getElementById('status');
+      const detailsEl = document.getElementById('details');
+      
+      // Recopilar información
+      const localStorageItems = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key) {
+          localStorageItems.push(key);
+        }
+      }
+      
+      const sessionStorageItems = [];
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        if (key) {
+          sessionStorageItems.push(key);
+        }
+      }
+      
+      const cookies = document.cookie.split(";").map(c => c.trim().split('=')[0]).filter(c => c);
+      
+      // Filtrar claves de Supabase
+      const supabaseKeys = [
+        ...localStorageItems.filter(k => k.includes('supabase')),
+        ...sessionStorageItems.filter(k => k.includes('supabase'))
+      ];
+      
+      // Mostrar información
+      statusEl.className = 'status info';
+      statusEl.innerHTML = `
+        ℹ️ <strong>Datos actuales de almacenamiento</strong><br>
+        <small>
+          • ${localStorageItems.length} claves en localStorage<br>
+          • ${sessionStorageItems.length} claves en sessionStorage<br>
+          • ${cookies.length} cookies activas<br>
+          • ${supabaseKeys.length} claves de Supabase
+        </small>
+      `;
+      
+      detailsEl.className = 'details show';
+      
+      let html = '';
+      
+      if (supabaseKeys.length > 0) {
+        html += '<h3>🔑 Claves de Supabase encontradas:</h3><ul>';
+        supabaseKeys.forEach(key => {
+          html += `<li>• ${key}</li>`;
+        });
+        html += '</ul>';
+      } else {
+        html += '<h3>✅ No se encontraron claves de Supabase</h3>';
+      }
+      
+      if (cookies.length > 0) {
+        html += '<h3>🍪 Cookies activas:</h3><ul>';
+        cookies.slice(0, 10).forEach(cookie => {
+          html += `<li>• ${cookie}</li>`;
+        });
+        if (cookies.length > 10) {
+          html += `<li>... y ${cookies.length - 10} más</li>`;
+        }
+        html += '</ul>';
+      }
+      
+      detailsEl.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
+

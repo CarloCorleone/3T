@@ -1,0 +1,81 @@
+{
+  "name": "Agua Tres Torres - Sistema de Gestión",
+  "short_name": "Tres Torres",
+  "description": "Sistema de gestión de pedidos, clientes y entregas de agua purificada",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logos/logo-cuadrado-57x57-iphone.png",
+      "sizes": "57x57",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logos/logo-cuadrado-72x72-ipad.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logos/logo-cuadrado-250x250.png",
+      "sizes": "250x250",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logos/Logo-Tres-Torres-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "logistics", "productivity"],
+  "lang": "es-CL",
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Pedidos",
+      "short_name": "Pedidos",
+      "description": "Ver y gestionar pedidos",
+      "url": "/pedidos",
+      "icons": [
+        {
+          "src": "/images/logos/logo-cuadrado-250x250.png",
+          "sizes": "250x250",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "short_name": "Clientes",
+      "description": "Gestionar clientes",
+      "url": "/clientes",
+      "icons": [
+        {
+          "src": "/images/logos/logo-cuadrado-250x250.png",
+          "sizes": "250x250",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Rutas",
+      "short_name": "Rutas",
+      "description": "Optimizar rutas de entrega",
+      "url": "/rutas",
+      "icons": [
+        {
+          "src": "/images/logos/logo-cuadrado-250x250.png",
+          "sizes": "250x250",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
+

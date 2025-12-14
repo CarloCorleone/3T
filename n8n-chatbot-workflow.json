@@ -1,0 +1,140 @@
+{
+  "name": "Chatbot 3t - Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "3t-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "3t-chat"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.userId }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.message }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "validate-request",
+      "name": "Validar Request",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: false, error: 'Request inválido. Falta userId o message.' } }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "respond-error",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [450, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: $json.response || 'Respuesta procesada', data: $json.data } }}",
+        "options": {}
+      },
+      "id": "respond-success",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Placeholder para OpenAI + Function Calling\n// CONFIGURAR MANUALMENTE:\n// 1. Agregar nodo OpenAI Chat\n// 2. Configurar System Message\n// 3. Agregar 6 funciones SQL\n// 4. Ver docs/CHATBOT-N8N-SETUP.md\n\nconst message = $input.first().json.body.message;\n\nreturn [{\n  json: {\n    response: `🤖 Chatbot configuración pendiente.\\n\\nRecibí tu mensaje: \"${message}\"\\n\\n⚠️ Por favor configura OpenAI siguiendo la guía en docs/CHATBOT-N8N-SETUP.md`,\n    data: null\n  }\n}];"
+      },
+      "id": "process-message",
+      "name": "Process Message (Configurar)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [650, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validar Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Request": {
+      "main": [
+        [
+          {
+            "node": "Process Message (Configurar)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Message (Configurar)": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "chatbot",
+      "id": "chatbot"
+    },
+    {
+      "name": "3t",
+      "id": "3t"
+    },
+    {
+      "name": "openai",
+      "id": "openai"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-16T00:00:00.000Z",
+  "versionId": "1"
+}
+

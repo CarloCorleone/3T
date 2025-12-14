@@ -1,0 +1,438 @@
+# 🧰 Reglas del Proyecto - Agua Tres Torres (3t)
+
+## 📚 Documentación
+- **SIEMPRE** lee `docs/INDEX.md` para entender la estructura completa
+- Documentación de módulos específicos en `docs/modules/`
+- El sistema tiene 9 módulos documentados: HOME, DASHBOARD, CLIENTES, PRODUCTOS, PEDIDOS, MAPA, REPORTES, OPTIMIZADOR-RUTAS, PRESUPUESTOS
+
+## 🔧 Workflow de Desarrollo
+
+### Modos de Operación
+
+El proyecto tiene **DOS modos distintos**:
+
+#### 🟢 MODO DESARROLLO (Hot Reload)
+```bash
+cd /opt/cane/3t
+./dev.sh              # Iniciar modo desarrollo
+./logs-dev.sh         # Ver logs
+```
+- **Contenedor**: `3t-app-dev`
+- **Puerto interno**: 3001
+- **Dominio**: https://dev.3t.loopia.cl
+- **Hot reload**: ✅ Cambios en tiempo real (< 1 segundo)
+- **Sin rebuild**: ✅ Modificaciones de código se reflejan automáticamente
+- **Usar cuando**: Estás haciendo cambios en el código, UI, o cualquier desarrollo activo
+
+#### 🔴 MODO PRODUCCIÓN (Build Optimizado)
+```bash
+cd /opt/cane/3t
+./prod.sh             # Deploy a producción
+./logs-prod.sh        # Ver logs
+```
+- **Contenedor**: `3t-app`
+- **Puerto interno**: 3002
+- **Dominio**: https://3t.loopia.cl
+- **Build optimizado**: ✅ Mejor rendimiento
+- **Requiere rebuild**: ⚠️ Cualquier cambio necesita `./prod.sh`
+- **Usar cuando**: Deploy final para usuarios
+
+### ⚠️ REGLA CRÍTICA: Cambio entre Modos
+
+**SI EL SISTEMA ESTÁ EN PRODUCCIÓN Y NECESITAS HACER CAMBIOS:**
+
+1. **NO modifiques en producción directamente**
+2. **Cambia a modo desarrollo primero:**
+   ```bash
+   cd /opt/cane/3t
+   docker compose down  # Detener producción
+   ./dev.sh            # Iniciar desarrollo
+   ```
+3. Haz tus cambios (se reflejan automáticamente)
+4. Prueba en https://dev.3t.loopia.cl
+5. Cuando esté listo, deploy a producción:
+   ```bash
+   ./prod.sh
+   ```
+
+### 🔄 Cuándo Necesitas Rebuild
+
+**SÍ necesitas rebuild (modo producción):**
+- ✅ Instalaste nuevas dependencias (`npm install`)
+- ✅ Modificaste `package.json` o `package-lock.json`
+- ✅ Cambiaste `Dockerfile` o `docker-compose.yml`
+- ✅ Modificaste configuración (next.config.ts, tailwind.config.ts)
+
+**NO necesitas rebuild (modo desarrollo):**
+- ❌ Cambios en archivos `.tsx`, `.ts`, `.css`
+- ❌ Cambios en componentes UI
+- ❌ Cambios en documentación (.md)
+
+## 🧩 Herramientas MCP (Model Context Protocol)
+
+### SIEMPRE Usa Estas Herramientas
+
+#### 🎨 Para UI/Componentes: `shadcn-ui` MCP
+```typescript
+// SIEMPRE usa los comandos MCP de shadcn-ui:
+- mcp_shadcn-ui_get_component
+- mcp_shadcn-ui_get_component_demo
+- mcp_shadcn-ui_list_components
+
+// ❌ NO crees componentes manualmente
+// ✅ USA los componentes de shadcn/ui v4
+```
+
+**Componentes disponibles:**
+- Button, Input, Card, Badge, Table, Dialog, Select, Tabs, etc.
+- Ver lista completa: `mcp_shadcn-ui_list_components`
+
+#### 🗄️ Para Base de Datos: `supabase-selfhosted` MCP
+```sql
+-- SIEMPRE usa los comandos MCP de Supabase:
+- mcp_supabase-selfhosted_list_tables
+- mcp_supabase-selfhosted_execute_sql
+- mcp_supabase-selfhosted_get_database_stats
+```
+
+**Configuración:**
+- **URL**: https://api.loopia.cl
+- **Anon Key**: En `/opt/cane/env/3t.env`
+- **Prefijo de tablas**: `3t_*`
+
+#### 🗺️ Para Queries SQL: `postgres-cane` MCP
+```sql
+-- Para queries read-only:
+- mcp_postgres-cane_query
+```
+
+## 🏗️ Arquitectura del Proyecto
+
+### Stack Tecnológico
+- **Framework**: Next.js 14 (App Router)
+- **Lenguaje**: TypeScript
+- **Base de datos**: Supabase (PostgreSQL)
+- **UI**: shadcn/ui v4 + Tailwind CSS
+- **Mapas**: Google Maps API (Places, Directions, Geocoding)
+- **Visualización**: Leaflet.js (módulo Mapa)
+- **Gráficos**: Recharts (módulo Dashboard)
+- **Deployment**: Docker + Nginx Proxy Manager
+
+### Estructura de Archivos
+```
+/opt/cane/3t/
+├── app/                    # Páginas Next.js (App Router)
+│   ├── page.tsx           # Home
+│   ├── dashboard/         # Análisis de ventas
+│   ├── clientes/          # CRUD clientes + Google Maps
+│   ├── productos/         # CRUD productos
+│   ├── pedidos/           # CRUD pedidos
+│   ├── mapa/             # Visualización Leaflet
+│   ├── rutas/            # Optimizador de rutas
+│   └── presupuestos/     # Generación PDF
+├── components/
+│   ├── ui/               # shadcn/ui components
+│   └── app-sidebar.tsx   # Navigation sidebar
+├── lib/
+│   ├── supabase.ts       # Cliente Supabase + tipos
+│   └── google-maps.ts    # Integración Google Maps
+├── docs/                 # 📚 Documentación completa
+│   ├── INDEX.md         # Índice maestro
+│   └── modules/         # Docs de cada módulo
+└── docker-compose.yml    # Orquestación Docker
+```
+
+### Variables de Entorno
+**Ubicación**: `/opt/cane/env/3t.env`
+```bash
+NODE_ENV=production
+PORT=3002  # 3001 para dev, 3002 para prod
+NEXT_PUBLIC_SUPABASE_URL=https://api.loopia.cl
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
+NEXT_TELEMETRY_DISABLED=1
+```
+
+## 🗄️ Base de Datos Supabase
+
+### Tablas Principales (Prefijo `3t_`)
+- `3t_customers` - Clientes (Hogar/Empresa)
+- `3t_addresses` - Direcciones con GPS (lat/lng de Google Maps)
+- `3t_products` - Productos (Botellones, Dispensadores, etc.)
+- `3t_orders` - Pedidos diarios
+- `3t_dashboard_ventas` - Vista SQL con todas las relaciones
+
+### Convenciones
+- **IDs**: UUIDs generados con `crypto.randomUUID()`
+- **Tipos de Cliente**: 'Hogar' | 'Empresa' (capitalizado)
+- **Estados de Pedido**: 'Pedido' | 'Ruta' | 'Despachado'
+- **Estados de Pago**: 'Pendiente' | 'Pagado' | 'Facturado' | 'Interno'
+- **Tipos de Pago**: 'Efectivo' | 'Transferencia'
+
+### Consultas con Relaciones
+```typescript
+const { data } = await supabase
+  .from('3t_orders')
+  .select(`
+    *,
+    customer:3t_customers(*),
+    address:3t_addresses(*),
+    product:3t_products(*)
+  `)
+```
+
+## 🗺️ Google Maps API
+
+### APIs Habilitadas
+- **Maps JavaScript API** - Mapas interactivos
+- **Places API** (versión ANTIGUA, no "New") - Autocompletado direcciones
+- **Directions API** - Rutas optimizadas
+- **Distance Matrix API** - Cálculo de distancias
+- **Geocoding API** - Coordenadas GPS
+
+### Restricciones de Seguridad
+- **Tipo**: HTTP Referrers (sitios web)
+- **Dominios permitidos**:
+  - https://3t.loopia.cl/*
+  - https://dev.3t.loopia.cl/*
+  - http://localhost:3000/*
+
+### Uso en Código
+```typescript
+// El script se carga en clientes/page.tsx
+<Script
+  src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+  strategy="afterInteractive"
+  onLoad={() => setGoogleMapsLoaded(true)}
+/>
+
+// Autocomplete
+const autocomplete = new google.maps.places.Autocomplete(inputRef.current, {
+  componentRestrictions: { country: 'cl' },
+  fields: ['formatted_address', 'geometry', 'address_components'],
+  types: ['address']
+})
+```
+
+## 🎨 UI/UX con shadcn/ui
+
+### SIEMPRE Usa shadcn/ui MCP
+```bash
+# Antes de crear cualquier componente UI, verifica si existe:
+mcp_shadcn-ui_list_components
+
+# Para ver cómo se usa:
+mcp_shadcn-ui_get_component_demo componentName
+
+# Para obtener el código fuente:
+mcp_shadcn-ui_get_component componentName
+```
+
+### Componentes Más Usados
+- **Button**: Botones con variantes (default, destructive, outline, ghost)
+- **Card**: Contenedores con CardHeader, CardTitle, CardDescription, CardContent
+- **Dialog**: Modales para formularios
+- **Table**: Tablas con TableHeader, TableBody, TableRow, TableCell
+- **Select**: Dropdowns
+- **Input**: Campos de texto
+- **Badge**: Etiquetas de estado
+- **Tabs**: Pestañas de navegación
+
+### Estilos
+- **Framework**: Tailwind CSS
+- **Colores corporativos**: Ver `docs/BRANDING.md`
+- **Diseño responsivo**: Mobile-first (md:, lg:, xl: breakpoints)
+
+## 📝 Convenciones de Código
+
+### TypeScript
+- ✅ SIEMPRE usa tipos explícitos
+- ✅ Importa tipos desde `lib/supabase.ts`
+- ✅ Usa `'use client'` cuando necesites hooks o interactividad
+- ❌ NO uses `any` (usa tipos específicos o unknown)
+
+### Componentes
+```typescript
+// ✅ Correcto
+'use client'
+
+import { useState, useEffect } from 'react'
+import { supabase, type Customer } from '@/lib/supabase'
+import { Button } from '@/components/ui/button'
+
+export default function ClientesPage() {
+  const [customers, setCustomers] = useState<Customer[]>([])
+  // ...
+}
+
+// ❌ Incorrecto
+import React from 'react'  // No necesario en Next.js App Router
+```
+
+### Estados de Carga
+- ✅ Siempre incluye `loading` state
+- ✅ Muestra feedback al usuario (loading spinners, toasts)
+- ✅ Maneja errores con `try/catch` o verificación de `error` de Supabase
+
+### Formularios
+- ✅ Usa `formData` state para todos los campos
+- ✅ Valida datos antes de enviar a Supabase
+- ✅ Resetea formularios después de crear/actualizar
+- ✅ Muestra mensajes de éxito/error con `alert()` o toast
+
+## 🔍 Troubleshooting Común
+
+### Problema: Google Maps Autocomplete no funciona
+**Solución**: 
+1. Verifica que `Places API` (antigua) está habilitada
+2. Verifica z-index en `globals.css`:
+   ```css
+   .pac-container {
+     z-index: 999999 !important;
+     position: fixed !important;
+     pointer-events: auto !important;
+   }
+   ```
+3. Previene cierre de modal en `DialogContent`:
+   ```typescript
+   onInteractOutside={(e) => {
+     const target = e.target as HTMLElement
+     if (target.closest('.pac-container')) {
+       e.preventDefault()
+     }
+   }}
+   ```
+
+### Problema: CORS con Supabase
+**Solución**: Ya está configurado en Supabase. Si persiste, ver `docs/troubleshooting/SOLUCION-CORS-SUPABASE.md`
+
+### Problema: Cambios no se reflejan
+**Causa**: Estás en modo producción
+**Solución**: Cambia a modo desarrollo:
+```bash
+cd /opt/cane/3t
+docker compose down
+./dev.sh
+```
+
+### Problema: Contenedor no arranca
+```bash
+# Ver logs
+docker logs 3t-app  # o 3t-app-dev
+
+# Verificar red
+docker network ls | grep cane_net
+
+# Rebuild completo
+cd /opt/cane/3t
+docker compose down
+docker compose build --no-cache
+docker compose up -d
+```
+
+## 🚀 Comandos Esenciales
+
+### Desarrollo Diario
+```bash
+cd /opt/cane/3t
+
+# Iniciar desarrollo (hot reload)
+./dev.sh
+
+# Ver logs en tiempo real
+./logs-dev.sh
+
+# Detener desarrollo
+docker compose down
+```
+
+### Deploy a Producción
+```bash
+cd /opt/cane/3t
+
+# Deploy completo
+./prod.sh
+
+# Ver logs
+./logs-prod.sh
+
+# Reiniciar (sin rebuild)
+docker restart 3t-app
+```
+
+### Debugging
+```bash
+# Ver contenedores corriendo
+docker ps | grep 3t
+
+# Ver logs con errores
+docker logs 3t-app | grep -i error
+
+# Entrar al contenedor
+docker exec -it 3t-app sh
+
+# Ver estadísticas de recursos
+docker stats 3t-app
+```
+
+## 📚 Documentación de Referencia
+
+### Para Cualquier Duda
+1. **Primero**: Lee `docs/INDEX.md` (índice maestro)
+2. **Módulo específico**: Lee `docs/modules/[MODULO].md`
+3. **Problema técnico**: Lee `docs/troubleshooting/`
+4. **Instalación**: Lee `docs/INSTALACION-COMPLETA.md`
+5. **Deployment**: Lee `docs/DEPLOYMENT.md`
+
+### Módulos Documentados
+- `docs/modules/HOME.md` - Página de inicio
+- `docs/modules/DASHBOARD.md` - Análisis de ventas
+- `docs/modules/CLIENTES.md` - **⭐ MÁS IMPORTANTE** - Gestión con Google Maps
+- `docs/modules/PRODUCTOS.md` - Catálogo
+- `docs/modules/PEDIDOS.md` - Gestión de pedidos
+- `docs/modules/MAPA.md` - Visualización Leaflet
+- `docs/modules/REPORTES.md` - Planificado
+- `docs/modules/OPTIMIZADOR-RUTAS.md` - Optimización con Google Maps
+- `docs/modules/PRESUPUESTOS.md` - Generación PDF
+
+## 🎯 Reglas de Oro
+
+1. **SIEMPRE usa modo desarrollo para cambios activos**
+2. **SIEMPRE usa shadcn-ui MCP para componentes UI**
+3. **SIEMPRE usa supabase MCP para queries de base de datos**
+4. **SIEMPRE lee la documentación en `docs/` antes de preguntar**
+5. **NUNCA hagas cambios directamente en producción**
+6. **NUNCA uses `any` en TypeScript**
+7. **NUNCA expongas API Keys en el código**
+8. **SIEMPRE valida datos antes de guardar en Supabase**
+9. **SIEMPRE incluye manejo de errores**
+10. **SIEMPRE documenta cambios importantes en `docs/CHANGELOG.md`**
+
+## 🔐 Seguridad
+
+- ✅ Variables sensibles en `/opt/cane/env/3t.env` (fuera de Git)
+- ✅ API Keys restringidas por dominio
+- ✅ HTTPS obligatorio vía Nginx Proxy Manager
+- ✅ Validación de datos en cliente y servidor
+- ❌ NO hardcodees credenciales
+- ❌ NO expongas tokens en logs
+
+## 📊 Proyecto Cane (Contexto)
+
+Este proyecto es parte del ecosistema **Cane** que sigue estándares organizacionales:
+
+- Todos los contenedores usan la red `cane_net`
+- Variables de entorno en `/opt/cane/env/`
+- Volúmenes en `/opt/cane/volumes/`
+- Cada servicio tiene su propia carpeta en `/opt/cane/`
+- Documentación clara y estructurada
+- Backup automático con restic
+
+---
+
+**💧 Agua Tres Torres - Sistema de Gestión**  
+**Reglas del Proyecto v3.0**  
+**Última actualización:** Octubre 11, 2025
+
+**Estas reglas son leídas automáticamente por Cursor AI en cada nuevo chat.**
+

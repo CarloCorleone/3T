@@ -1,0 +1,67 @@
+# ============================================
+# Docker Compose - Sistema ML Agua Tres Torres
+# ============================================
+# Contenedor para entrenar modelos y servir predicciones
+# Red: cane_net (compartida con Supabase, n8n, 3T)
+# Puerto: 8001 (API REST)
+
+services:
+  ml:
+    container_name: 3t-ml
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    
+    # Variables de entorno
+    env_file:
+      - /opt/cane/env/ml.env
+    
+    # Límites de recursos (ajustados al hardware: 4 CPUs, 8GB RAM)
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    
+    # Volúmenes persistentes
+    volumes:
+      # Código fuente (editable en vivo)
+      - ./src:/app/src:rw
+      - ./api:/app/api:rw
+      
+      # Datos (raw, processed, features)
+      - ./data:/app/data:rw
+      
+      # Modelos entrenados (.pkl)
+      - ./models:/app/models:rw
+      
+      # Notebooks de análisis
+      - ./notebooks:/app/notebooks:rw
+    
+    # Red compartida con Supabase
+    networks:
+      - cane_net
+    
+    # Puerto expuesto para API REST
+    ports:
+      - "127.0.0.1:8001:8001"
+    
+    # Comando por defecto: mantener contenedor vivo
+    command: tail -f /dev/null
+    
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# Red externa (ya existe, creada por Supabase)
+networks:
+  cane_net:
+    external: true

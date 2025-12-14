@@ -1,0 +1,149 @@
+{
+  "name": "Chatbot 3t - SQL Directo v5",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "id": "chat-trigger"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0,
+          "maxTokens": 2000,
+          "systemMessage": "Eres un experto en SQL para PostgreSQL especializado en Agua Tres Torres.\n\nTu función: Analizar la pregunta del usuario y decidir:\n1. Si necesita consultar la base de datos → generar SQL preciso\n2. Si es conversación general → responder directamente\n\n# REGLA CRÍTICA: COMILLAS DOBLES\nTODAS las tablas empiezan con \"3t_\" y REQUIEREN comillas dobles.\n✅ CORRECTO: SELECT * FROM \"3t_orders\" WHERE status = 'Ruta'\n❌ INCORRECTO: SELECT * FROM 3t_orders\n\n# SCHEMA PRINCIPALES\n\n\"3t_orders\" - Pedidos:\norder_id TEXT, customer_id TEXT, delivery_address_id TEXT, status TEXT ('Pedido'|'Ruta'|'Despachado'), payment_status TEXT ('Pendiente'|'Pagado'|'Facturado'|'Interno'), payment_type TEXT, order_type TEXT, product_type TEXT, quantity NUMERIC, final_price NUMERIC, bottles_delivered NUMERIC, bottles_returned NUMERIC, order_date DATE, delivered_date DATE, payment_date DATE, invoice_number TEXT, warehouse TEXT, details TEXT\n\n\"3t_customers\" - Clientes:\ncustomer_id TEXT, name TEXT, business_name TEXT, rut TEXT, contact_name TEXT, email TEXT, phone TEXT, address_id TEXT, commune TEXT, customer_type TEXT ('Hogar'|'Empresa'), product_format TEXT, price NUMERIC\n\n\"3t_addresses\" - Direcciones:\naddress_id TEXT, customer_id TEXT, raw_address TEXT, street_name TEXT, street_number INTEGER, apartment TEXT, commune TEXT, region TEXT, latitude NUMERIC, longitude NUMERIC, maps_link TEXT, directions TEXT, is_default BOOLEAN\n\n\"3t_products\" - Productos:\nproduct_id TEXT, name TEXT, category TEXT, price_neto NUMERIC, pv_iva_inc INTEGER, image_url TEXT\n\n\"3t_suppliers\" - Proveedores:\nsupplier_id TEXT, name TEXT, phone TEXT, email TEXT, observations TEXT\n\n\"3t_purchases\" - Compras:\npurchase_id TEXT, supplier_id TEXT, address_id UUID, supplier_order_number TEXT, status TEXT ('Pedido'|'Ruta'|'Despachado'), purchase_date DATE, completed_date DATE, final_price NUMERIC, observations TEXT\n\n# RELACIONES\n\"3t_orders\".customer_id → \"3t_customers\".customer_id\n\"3t_orders\".delivery_address_id → \"3t_addresses\".address_id\n\"3t_orders\".product_type → \"3t_products\".product_id\n\"3t_addresses\".customer_id → \"3t_customers\".customer_id\n\"3t_purchases\".supplier_id → \"3t_suppliers\".supplier_id\n\n# REGLAS SQL\n1. SIEMPRE comillas dobles: \"3t_orders\"\n2. LIMIT máximo 50\n3. Búsquedas: ILIKE (case-insensitive)\n4. Fechas: CURRENT_DATE, DATE_TRUNC('month', CURRENT_DATE)\n5. Solo SELECT permitido\n6. JOINs para datos de múltiples tablas\n\n# EJEMPLOS\n\nUsuario: \"¿Cuántos pedidos en ruta?\"\nRazonamiento: Consultar 3t_orders, filtrar status='Ruta'\nRespuesta:\n```sql\nSELECT COUNT(*) as total FROM \"3t_orders\" WHERE status = 'Ruta';\n```\n\nUsuario: \"¿Qué clientes tienen deuda?\"\nRazonamiento: JOIN orders-customers, filtrar payment_status='Pendiente'\nRespuesta:\n```sql\nSELECT c.name, c.phone, COUNT(o.order_id) as pedidos, SUM(o.final_price) as deuda\nFROM \"3t_orders\" o\nJOIN \"3t_customers\" c ON o.customer_id = c.customer_id\nWHERE o.payment_status = 'Pendiente'\nGROUP BY c.customer_id, c.name, c.phone\nORDER BY deuda DESC LIMIT 50;\n```\n\nUsuario: \"Teléfono de Minplast\"\nRazonamiento: Buscar en suppliers con ILIKE\nRespuesta:\n```sql\nSELECT name, phone, email FROM \"3t_suppliers\" WHERE name ILIKE '%minplast%' LIMIT 10;\n```\n\nUsuario: \"Hola, ¿cómo estás?\"\nRazonamiento: Conversación, no necesita DB\nRespuesta: ¡Hola! Estoy bien, gracias. Soy el asistente de Agua Tres Torres. ¿En qué puedo ayudarte? Puedo consultar pedidos, clientes, ventas y más.\n\nIMPORTANTE:\n- Si generas SQL: SOLO devuelve el SQL en bloque ```sql\n- Si conversas: NO uses bloques de código"
+        },
+        "text": "={{ $json.chatInput }}"
+      },
+      "name": "Claude SQL Generator",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [460, 300],
+      "id": "claude-sql-generator",
+      "credentials": {
+        "anthropicApi": {
+          "id": "JOFFOSgue2hrTDwp",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Analizar respuesta de Claude para ver si generó SQL o respuesta directa\nconst claudeOutput = $input.first().json.output || $input.first().json.text || '';\nconst originalQuestion = $('Chat Trigger').first().json.chatInput;\n\n// Detectar si hay SQL en la respuesta\nconst hasSQLBlock = /```sql\\s+([\\s\\S]*?)```/i.test(claudeOutput);\nconst hasSELECT = /SELECT\\s+/i.test(claudeOutput);\n\nif (hasSQLBlock || hasSELECT) {\n  // Tiene SQL → ir a branch de DB (output 0)\n  return [\n    [{\n      json: {\n        claudeOutput: claudeOutput,\n        originalQuestion: originalQuestion,\n        needsDB: true\n      }\n    }],\n    null\n  ];\n} else {\n  // Respuesta directa → ir a output final (output 1)\n  return [\n    null,\n    [{\n      json: {\n        output: claudeOutput,\n        needsDB: false\n      }\n    }]\n  ];\n}"
+      },
+      "name": "Detectar si necesita SQL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "id": "detect-sql"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Extraer y limpiar SQL del output de Claude\nlet sqlText = $input.first().json.claudeOutput;\nconst originalQuestion = $input.first().json.originalQuestion;\n\n// Extraer SQL de bloque markdown\nconst sqlBlockMatch = sqlText.match(/```sql\\s+([\\s\\S]*?)```/i);\nif (sqlBlockMatch) {\n  sqlText = sqlBlockMatch[1];\n} else {\n  // Buscar solo el SELECT\n  const selectMatch = sqlText.match(/(SELECT[\\s\\S]*?;)/i);\n  if (selectMatch) {\n    sqlText = selectMatch[1];\n  }\n}\n\n// Limpiar\nsqlText = sqlText.trim();\n\n// Validar que sea SELECT\nif (!sqlText.toUpperCase().startsWith('SELECT') && !sqlText.toUpperCase().startsWith('WITH')) {\n  throw new Error('Solo se permiten consultas SELECT');\n}\n\n// Verificar que use comillas dobles en tablas 3t_\nif (/FROM\\s+3t_/i.test(sqlText) || /JOIN\\s+3t_/i.test(sqlText)) {\n  throw new Error('Las tablas 3t_* requieren comillas dobles. Ejemplo: \"3t_orders\"');\n}\n\nreturn [{\n  json: {\n    sql: sqlText,\n    originalQuestion: originalQuestion\n  }\n}];"
+      },
+      "name": "Extraer SQL Limpio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 200],
+      "id": "extract-clean-sql"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.sql }}",
+        "options": {}
+      },
+      "name": "Ejecutar SQL en Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1120, 200],
+      "id": "execute-postgres",
+      "credentials": {
+        "postgres": {
+          "id": "ThWyN0SyRCiEThJO",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Preparar datos para el formatter\nconst results = $input.all();\nconst originalQuestion = $('Extraer SQL Limpio').first().json.originalQuestion;\nconst sqlExecuted = $('Extraer SQL Limpio').first().json.sql;\n\nlet resultsText = '';\n\nif (results.length === 0) {\n  resultsText = 'No se encontraron resultados.';\n} else {\n  resultsText = JSON.stringify(results.map(item => item.json), null, 2);\n}\n\nreturn [{\n  json: {\n    originalQuestion: originalQuestion,\n    sqlExecuted: sqlExecuted,\n    resultsJSON: resultsText,\n    resultsCount: results.length\n  }\n}];"
+      },
+      "name": "Preparar Datos para Formatter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 200],
+      "id": "format-results"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 1000,
+          "systemMessage": "Eres un formateador de datos para Agua Tres Torres.\n\nREGLAS ABSOLUTAS ANTI-ALUCINACIÓN:\n1. SOLO usa datos que están en los RESULTADOS\n2. NUNCA inventes números, nombres o información\n3. Si no hay resultados, di \"No se encontró información\"\n4. Si hay error, explica el problema claramente\n\nINPUT que recibirás:\n- Pregunta original del usuario\n- Resultados de la base de datos (JSON)\n\nTu trabajo: Convertir JSON a lenguaje natural profesional.\n\nFORMATO:\n- Emojis: 📦 pedidos, 💰 precios, 📞 contacto, 🚚 rutas, 👤 clientes\n- Números con puntos de miles: $25.000 (no $25000)\n- Si >10 resultados, muestra primeros 10 y menciona cuántos más\n- Conciso y directo\n\nEJEMPLO CORRECTO:\nPregunta: \"¿Cuántos pedidos en ruta?\"\nResultados: [{\"total\": 3}]\nRespuesta: 🚚 Hay 3 pedidos actualmente en estado Ruta.\n\nEJEMPLO INCORRECTO (NO HACER):\nPregunta: \"¿Cuántos pedidos en ruta?\"\nResultados: [{\"total\": 3}]\nRespuesta: Tienes pedidos de Classic Cars, Motorcycles... ❌ ESTO ES INVENTAR"
+        },
+        "text": "Pregunta del usuario: {{ $json.originalQuestion }}\n\nResultados de la base de datos:\n{{ $json.resultsJSON }}\n\nCantidad de resultados: {{ $json.resultsCount }}\n\nFormatea estos datos en una respuesta clara y profesional en español."
+      },
+      "name": "Claude Response Formatter",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [1560, 200],
+      "id": "claude-formatter",
+      "credentials": {
+        "anthropicApi": {
+          "id": "JOFFOSgue2hrTDwp",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Unificar output final para el chat\nconst items = $input.all();\n\nlet finalOutput = '';\n\nif (items.length > 0) {\n  const firstItem = items[0].json;\n  \n  // Puede venir del formatter o de la respuesta directa\n  if (firstItem.output) {\n    finalOutput = firstItem.output;\n  } else if (firstItem.text) {\n    finalOutput = firstItem.text;\n  } else {\n    finalOutput = 'Respuesta procesada.';\n  }\n}\n\nreturn [{\n  json: {\n    output: finalOutput\n  }\n}];"
+      },
+      "name": "Preparar Output Final",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1780, 300],
+      "id": "final-output"
+    }
+  ],
+  "connections": {
+    "Chat Trigger": {
+      "main": [[{"node": "Claude SQL Generator", "type": "main", "index": 0}]]
+    },
+    "Claude SQL Generator": {
+      "main": [[{"node": "Detectar si necesita SQL", "type": "main", "index": 0}]]
+    },
+    "Detectar si necesita SQL": {
+      "main": [
+        [{"node": "Extraer SQL Limpio", "type": "main", "index": 0}],
+        [{"node": "Preparar Output Final", "type": "main", "index": 0}]
+      ]
+    },
+    "Extraer SQL Limpio": {
+      "main": [[{"node": "Ejecutar SQL en Postgres", "type": "main", "index": 0}]]
+    },
+    "Ejecutar SQL en Postgres": {
+      "main": [[{"node": "Preparar Datos para Formatter", "type": "main", "index": 0}]]
+    },
+    "Preparar Datos para Formatter": {
+      "main": [[{"node": "Claude Response Formatter", "type": "main", "index": 0}]]
+    },
+    "Claude Response Formatter": {
+      "main": [[{"node": "Preparar Output Final", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
+

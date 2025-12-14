@@ -1,0 +1,214 @@
+# Reglas para Cursor AI - Sistema ML Agua Tres Torres
+
+## 🎯 Contexto del Proyecto
+
+Este es un sistema completo de Machine Learning integrado a la aplicación Agua Tres Torres (3T).
+
+**Documentación principal:** `README.md` (1,183 líneas - LEER PRIMERO)
+
+---
+
+## 📚 Antes de Cualquier Modificación
+
+1. **LEER** `/opt/cane/3t/ml/README.md` completo
+2. **VERIFICAR** estado de la API: `curl http://localhost:8001/health`
+3. **HACER BACKUP** si vas a modificar modelos .pkl
+4. **PROBAR** cambios en desarrollo antes de producción
+
+---
+
+## 🚨 NUNCA Hacer
+
+- ❌ Eliminar archivos `.pkl` sin backup
+- ❌ Modificar estructura de `rfm_segments.csv` (API depende de columnas específicas)
+- ❌ Cambiar puerto 8001 sin actualizar frontend (`NEXT_PUBLIC_ML_API_URL`)
+- ❌ Re-entrenar en horario laboral (consume CPU ~15 min)
+- ❌ Modificar código de API sin reiniciarla después
+- ❌ Hardcodear valores - usar variables de entorno
+
+---
+
+## ✅ SIEMPRE Hacer
+
+- ✅ Backup automático antes de re-entrenar (ya implementado en `retrain_pipeline.py`)
+- ✅ Validar `/health` después de cambios en API
+- ✅ Documentar cambios significativos en README.md
+- ✅ Probar todos endpoints después de modificar API
+- ✅ Verificar que frontend sigue funcionando
+- ✅ Usar logging apropiado (ya configurado)
+- ✅ Seguir estructura de carpetas existente
+
+---
+
+## 🏗️ Arquitectura
+
+```
+Frontend (Next.js) → API REST (FastAPI) → Modelos ML (.pkl) → Predicciones
+```
+
+**Componentes clave:**
+- `api/main.py` - API REST (CORE)
+- `models/*.pkl` - 6 modelos entrenados
+- `src/train_all_models.py` - Entrenamiento
+- `src/retrain_pipeline.py` - Re-entrenamiento automático
+- `data/processed/` - Datos consolidados
+
+---
+
+## 📝 Estilo de Código
+
+### Python (Backend ML)
+
+```python
+# ✅ BUENO: Docstrings completos
+def train_model(data: pd.DataFrame) -> Model:
+    """
+    Entrena modelo XGBoost para predicción de churn.
+    
+    Args:
+        data: DataFrame con features [recency_days, frequency, monetary]
+    
+    Returns:
+        Modelo entrenado
+        
+    Raises:
+        ValueError: Si faltan columnas requeridas
+    """
+    pass
+
+# ✅ BUENO: Type hints
+def predict_churn(customer_id: str, rfm_data: dict) -> float:
+    pass
+
+# ✅ BUENO: Logging apropiado
+logging.info("🔄 Iniciando re-entrenamiento de modelos...")
+logging.error(f"❌ Error al cargar modelo: {str(e)}")
+
+# ❌ MALO: Sin documentación
+def train(d):
+    pass
+```
+
+### TypeScript (Frontend)
+
+```typescript
+// ✅ BUENO: Interfaces claras
+interface DemandForecastResponse {
+  forecast_days: number;
+  predictions: Prediction[];
+  summary: Summary;
+}
+
+// ✅ BUENO: Error handling
+try {
+  const data = await mlApi.getSegments();
+  setSegments(data);
+} catch (error) {
+  console.error("Error cargando segmentos:", error);
+  setError(error.message);
+}
+
+// ❌ MALO: Sin tipos
+const data = await fetch('/api').then(r => r.json());
+```
+
+---
+
+## 🔧 Comandos Útiles
+
+```bash
+# Iniciar API
+cd /opt/cane/3t/ml && ./START_API.sh
+
+# Re-entrenar (con backup)
+cd /opt/cane/3t/ml && source venv/bin/activate && python src/retrain_pipeline.py
+
+# Ver logs
+tail -f /tmp/ml-api.log
+
+# Verificar modelos
+ls -lh /opt/cane/3t/ml/models/*.pkl
+
+# Probar endpoint
+curl http://localhost:8001/segments | jq
+```
+
+---
+
+## 📊 Estructura de Respuestas API
+
+Todas las respuestas deben seguir este formato:
+
+```python
+# ✅ BUENO: Respuesta estructurada con Pydantic
+class PredictionResponse(BaseModel):
+    customer_id: str
+    prediction: float
+    confidence: float
+    timestamp: datetime
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "customer_id": "abc123",
+                "prediction": 0.85,
+                "confidence": 0.92,
+                "timestamp": "2025-11-04T10:00:00"
+            }
+        }
+```
+
+---
+
+## 🐛 Debugging
+
+### API no responde
+
+```bash
+# Ver proceso
+ps aux | grep "python api/main.py"
+
+# Ver logs
+tail -30 /tmp/ml-api.log
+
+# Reiniciar
+pkill -f "python api/main.py"
+cd /opt/cane/3t/ml && ./START_API.sh
+```
+
+### Modelos no cargan
+
+```bash
+# Verificar modelos existen
+ls /opt/cane/3t/ml/models/*.pkl
+
+# Ver tamaños (deben ser >1KB)
+ls -lh /opt/cane/3t/ml/models/*.pkl
+
+# Re-entrenar si faltan
+python src/train_all_models.py
+```
+
+---
+
+## 📚 Referencias Rápidas
+
+- **README completo:** `/opt/cane/3t/ml/README.md`
+- **Resultados:** `/opt/cane/3t/ml/RESULTADOS_MODELOS.md`
+- **Dashboard:** `/opt/cane/3t/docs/modules/ML-INSIGHTS.md`
+- **Workflows n8n:** `/opt/cane/3t/ml/n8n-workflows/README.md`
+
+---
+
+## 🎓 Para Nuevos Desarrolladores
+
+1. Leer `README.md` completo (1,183 líneas)
+2. Revisar `RESULTADOS_MODELOS.md` para entender métricas
+3. Ejecutar `curl http://localhost:8001/health` para verificar estado
+4. Acceder a `http://localhost:8001/docs` para ver API interactiva
+5. Probar dashboard en `http://localhost:3000/ml-insights`
+
+---
+
+**Última actualización:** 2025-11-04  
+**Versión:** 1.0.0

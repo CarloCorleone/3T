@@ -1,0 +1,16 @@
+# robots.txt for Agua Tres Torres
+User-agent: *
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /pedidos/
+Disallow: /clientes/
+Disallow: /productos/
+Disallow: /rutas/
+Disallow: /presupuestos/
+Disallow: /reportes/
+
+# Allow public assets
+Allow: /images/
+Allow: /favicon.ico
+Allow: /manifest.json
+

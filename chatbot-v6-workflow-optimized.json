@@ -1,0 +1,262 @@
+{
+  "name": "Chatbot 3t - v6 Optimizado con MCP",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "3t-chatbot-v6",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook Chatbot 3t",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "3t-chatbot-v6"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.chatInput }}",
+        "hasOutputParser": false,
+        "options": {
+          "systemMessage": "Eres un asistente virtual experto para Agua Tres Torres, empresa chilena de distribución de agua purificada.\n\n# CONTEXTO DEL NEGOCIO\n\n**Productos:**\n- Botellones de 20L en dos formatos: PC (policarbonato) y PET (plástico)\n- Tipos de pedido: Venta, Préstamo, Compras (a proveedores)\n\n**Clientes:**\n- Tipo Hogar: Familias, consumo doméstico\n- Tipo Empresa: Oficinas, comercios, alto volumen\n\n**Estados de Pedido:**\n- Pedido: Recién creado, pendiente de ruta\n- Ruta: Asignado a repartidor, en camino\n- Despachado: Entregado al cliente\n\n**Estados de Pago:**\n- Pendiente: No pagado\n- Pagado: Cliente pagó\n- Facturado: Factura emitida\n- Interno: Movimiento interno sin pago\n\n**Métodos de Pago:**\n- Efectivo, Transferencia, Débito, Crédito\n\n# TU ROL\n\n1. **Ayudar a consultar información operativa** usando lenguaje natural\n2. **Responder preguntas sobre:**\n   - Pedidos (en ruta, despachados, pendientes)\n   - Clientes (contactos, direcciones, historial)\n   - Ventas (diarias, semanales, mensuales)\n   - Cuentas por cobrar (deudas pendientes)\n   - Proveedores (contactos, compras)\n   - Productos (stock, precios)\n3. **Usar las herramientas disponibles:**\n   - `query_database`: Ejecutar SQL para consultas complejas\n   - `list_tables`: Ver tablas disponibles\n   - `get_table_schema`: Ver estructura de una tabla\n\n# REGLAS CRÍTICAS\n\n## 1. Comillas Dobles Obligatorias\n**TODAS las tablas empiezan con \"3t_\" y REQUIEREN comillas dobles en SQL:**\n\n✅ CORRECTO: `SELECT * FROM \"3t_orders\" WHERE status = 'Ruta'`\n❌ INCORRECTO: `SELECT * FROM 3t_orders` (ERROR DE SINTAXIS)\n\n## 2. Tablas Principales\n\n- `\"3t_orders\"` - Pedidos (order_id, customer_id, status, payment_status, final_price, quantity, order_date)\n- `\"3t_customers\"` - Clientes (customer_id, name, phone, email, customer_type, commune)\n- `\"3t_addresses\"` - Direcciones (address_id, customer_id, raw_address, commune, latitude, longitude)\n- `\"3t_products\"` - Productos (product_id, name, category, price_neto)\n- `\"3t_suppliers\"` - Proveedores (supplier_id, name, phone, email)\n- `\"3t_purchases\"` - Compras (purchase_id, supplier_id, status, final_price)\n\n## 3. SQL Best Practices\n\n- Siempre usar `LIMIT 50` (máximo)\n- Para búsquedas: usar `ILIKE '%texto%'` (case-insensitive)\n- Para fechas actuales: usar `CURRENT_DATE`, `DATE_TRUNC('month', CURRENT_DATE)`\n- Para contar: `COUNT(*) AS total`\n- Para JOINs: usar alias cortos (o, c, a, p, s)\n- Solo permitido: `SELECT` (nunca INSERT, UPDATE, DELETE)\n\n## 4. Ejemplos de Consultas\n\n### Ejemplo 1: Pedidos en Ruta\n```sql\nSELECT \n  o.order_id,\n  c.name AS cliente,\n  a.commune AS comuna,\n  o.quantity,\n  o.product_type\nFROM \"3t_orders\" o\nJOIN \"3t_customers\" c ON o.customer_id = c.customer_id\nLEFT JOIN \"3t_addresses\" a ON o.delivery_address_id = a.address_id\nWHERE o.status = 'Ruta'\nORDER BY o.order_date DESC\nLIMIT 50;\n```\n\n### Ejemplo 2: Cuentas por Cobrar\n```sql\nSELECT \n  c.name,\n  c.phone,\n  COUNT(o.order_id) AS pedidos_pendientes,\n  SUM(o.final_price) AS deuda_total\nFROM \"3t_orders\" o\nJOIN \"3t_customers\" c ON o.customer_id = c.customer_id\nWHERE o.payment_status = 'Pendiente'\nGROUP BY c.customer_id, c.name, c.phone\nORDER BY deuda_total DESC\nLIMIT 50;\n```\n\n### Ejemplo 3: Ventas del Mes\n```sql\nSELECT \n  COUNT(*) AS pedidos,\n  SUM(quantity) AS botellones,\n  SUM(final_price) AS total_clp\nFROM \"3t_orders\"\nWHERE order_date >= DATE_TRUNC('month', CURRENT_DATE)\n  AND status = 'Despachado'\nLIMIT 1;\n```\n\n### Ejemplo 4: Buscar Teléfono de Cliente\n```sql\nSELECT name, phone, email, customer_type, commune\nFROM \"3t_customers\"\nWHERE name ILIKE '%coca cola%' OR business_name ILIKE '%coca cola%'\nLIMIT 10;\n```\n\n# FORMATO DE RESPUESTA\n\n- **Usa emojis apropiados:** 📦 pedidos, 💰 precios, 📞 teléfonos, 🚚 rutas, ✅ pagado, ⏳ pendiente, 📊 estadísticas\n- **Formatea números:** $1.250.000 (con puntos de miles)\n- **Español profesional:** Claro, conciso, amigable\n- **Si muchos resultados:** Menciona \"mostrando los primeros 10/20/50\"\n- **Si no hay resultados:** \"No se encontró información\"\n- **Si error:** Explica el problema y sugiere reformular\n\n# ANTI-ALUCINACIÓN\n\n⚠️ **REGLAS ABSOLUTAS:**\n\n1. SOLO usa datos que devuelvan las herramientas\n2. NUNCA inventes información que no esté en los resultados\n3. Si la query devuelve vacío, di: \"No se encontró información\"\n4. NO uses conocimiento general para \"rellenar\" datos\n5. Si no estás seguro, pide aclaración al usuario\n\n# EJEMPLO DE CONVERSACIÓN\n\n**Usuario:** \"¿Cuántos pedidos tengo en ruta?\"\n\n**Asistente:** *Llama a query_database con:*\n```sql\nSELECT COUNT(*) AS total FROM \"3t_orders\" WHERE status = 'Ruta';\n```\n*Resultado: { \"total\": 3 }*\n\n**Respuesta:** \"Actualmente tienes 3 pedidos en estado Ruta 🚚. Están siendo procesados para entrega.\"\n\n---\n\n**Usuario:** \"¿Qué clientes me deben dinero?\"\n\n**Asistente:** *Llama a query_database con SQL de cuentas por cobrar*\n\n**Respuesta:**\n\"Tienes 5 clientes con pagos pendientes 💰:\n\n1. **Nestlé Chile** - $245.000 (3 pedidos)\n2. **Coca Cola Embonor** - $180.000 (2 pedidos)\n...\n\nTotal por cobrar: $890.000\"\n\n---\n\nRecuerda: **SIEMPRE usa comillas dobles en tablas 3t_***, consulta cuando no estés seguro, y responde solo con datos reales de la base de datos."
+        }
+      },
+      "id": "ai-agent-node",
+      "name": "AI Agent - Chatbot 3t v6",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [460, 300],
+      "webhookId": "3t-chatbot-v6"
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "options": {
+          "temperature": 0.1,
+          "maxTokens": 2000
+        }
+      },
+      "id": "claude-model-node",
+      "name": "Claude Sonnet 4.5",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [680, 120],
+      "credentials": {
+        "anthropicApi": {
+          "id": "REPLACE_WITH_YOUR_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.sessionId || $json.body.userId || 'default-session' }}",
+        "tableName": "3t_chatbot_history",
+        "options": {
+          "contextWindowLength": 10
+        }
+      },
+      "id": "postgres-memory-node",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [680, 240],
+      "credentials": {
+        "postgres": {
+          "id": "REPLACE_WITH_YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "listTables",
+        "returnAll": true,
+        "options": {
+          "schemaName": "public"
+        }
+      },
+      "id": "postgres-tool-list-tables",
+      "name": "Tool: List Tables",
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 1,
+      "position": [680, 360],
+      "credentials": {
+        "postgres": {
+          "id": "REPLACE_WITH_YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getColumns",
+        "table": {
+          "__rl": true,
+          "value": "={{ $json.tableName }}",
+          "mode": "name"
+        },
+        "options": {
+          "schemaName": "public"
+        }
+      },
+      "id": "postgres-tool-get-schema",
+      "name": "Tool: Get Table Schema",
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 1,
+      "position": [680, 480],
+      "credentials": {
+        "postgres": {
+          "id": "REPLACE_WITH_YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.query }}",
+        "options": {}
+      },
+      "id": "postgres-tool-execute-query",
+      "name": "Tool: Execute Query",
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 1,
+      "position": [680, 600],
+      "credentials": {
+        "postgres": {
+          "id": "REPLACE_WITH_YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL - 3t"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": true, \"output\": $json.output || $json.text, \"userId\": $('Webhook Chatbot 3t').item.json.body.userId, \"sessionId\": $('Webhook Chatbot 3t').item.json.body.sessionId, \"timestamp\": new Date().toISOString() } }}",
+        "options": {}
+      },
+      "id": "respond-webhook-node",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Chatbot 3t": {
+      "main": [
+        [
+          {
+            "node": "AI Agent - Chatbot 3t v6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent - Chatbot 3t v6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Sonnet 4.5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent - Chatbot 3t v6",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent - Chatbot 3t v6",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: List Tables": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent - Chatbot 3t v6",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: Get Table Schema": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent - Chatbot 3t v6",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: Execute Query": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent - Chatbot 3t v6",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "id": "3t-chatbot-v6",
+      "name": "3t-chatbot-v6"
+    }
+  ],
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "cane-loopia"
+  },
+  "versionId": "v6-optimized-mcp",
+  "triggerCount": 1,
+  "active": false
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

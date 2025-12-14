@@ -1,0 +1,824 @@
+{
+  "timestamp": "2025-10-28T03:38:17.346Z",
+  "mode": "dry-run",
+  "total_images": 116,
+  "successful": 0,
+  "skipped": 0,
+  "failed": 0,
+  "orphan_photos": 116,
+  "details": [
+    {
+      "filename": "00fc3d0d.Delivery Photo.160519.jpg",
+      "order_id": "00fc3d0d",
+      "status": "orphan",
+      "old_path": "Orders_Images/00fc3d0d.Delivery Photo.160519.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "01662c4c.Delivery Photo.151216.jpg",
+      "order_id": "01662c4c",
+      "status": "orphan",
+      "old_path": "Orders_Images/01662c4c.Delivery Photo.151216.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "0208da81.Delivery Photo.145222.jpg",
+      "order_id": "0208da81",
+      "status": "orphan",
+      "old_path": "Orders_Images/0208da81.Delivery Photo.145222.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "02d79734.Delivery Photo.135458.jpg",
+      "order_id": "02d79734",
+      "status": "orphan",
+      "old_path": "Orders_Images/02d79734.Delivery Photo.135458.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "0333efb7.Delivery Photo.134113.jpg",
+      "order_id": "0333efb7",
+      "status": "orphan",
+      "old_path": "Orders_Images/0333efb7.Delivery Photo.134113.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "0376f5d2.Delivery Photo.171442.jpg",
+      "order_id": "0376f5d2",
+      "status": "orphan",
+      "old_path": "Orders_Images/0376f5d2.Delivery Photo.171442.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "04c8082f.Delivery Photo.165713.jpg",
+      "order_id": "04c8082f",
+      "status": "orphan",
+      "old_path": "Orders_Images/04c8082f.Delivery Photo.165713.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "0578672c.Delivery Photo.160153.jpg",
+      "order_id": "0578672c",
+      "status": "orphan",
+      "old_path": "Orders_Images/0578672c.Delivery Photo.160153.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "065707d6.Delivery Photo.172022.jpg",
+      "order_id": "065707d6",
+      "status": "orphan",
+      "old_path": "Orders_Images/065707d6.Delivery Photo.172022.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "0d7fd4f1.Delivery Photo.173654.jpg",
+      "order_id": "0d7fd4f1",
+      "status": "orphan",
+      "old_path": "Orders_Images/0d7fd4f1.Delivery Photo.173654.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "1203da02.Delivery Photo.185914.jpg",
+      "order_id": "1203da02",
+      "status": "orphan",
+      "old_path": "Orders_Images/1203da02.Delivery Photo.185914.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "154a05c6.Delivery Photo.152201.jpg",
+      "order_id": "154a05c6",
+      "status": "orphan",
+      "old_path": "Orders_Images/154a05c6.Delivery Photo.152201.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "16eb7d14.Delivery Photo.144034.jpg",
+      "order_id": "16eb7d14",
+      "status": "orphan",
+      "old_path": "Orders_Images/16eb7d14.Delivery Photo.144034.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "17e4fc0e.Delivery Photo.151107.jpg",
+      "order_id": "17e4fc0e",
+      "status": "orphan",
+      "old_path": "Orders_Images/17e4fc0e.Delivery Photo.151107.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "1888f71b.Delivery Photo.140109.jpg",
+      "order_id": "1888f71b",
+      "status": "orphan",
+      "old_path": "Orders_Images/1888f71b.Delivery Photo.140109.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "194d0f0a.Delivery Photo.142017.jpg",
+      "order_id": "194d0f0a",
+      "status": "orphan",
+      "old_path": "Orders_Images/194d0f0a.Delivery Photo.142017.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "1a03c40e.Delivery Photo.165914.jpg",
+      "order_id": "1a03c40e",
+      "status": "orphan",
+      "old_path": "Orders_Images/1a03c40e.Delivery Photo.165914.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "1e3f6ea4.Delivery Photo.144015.jpg",
+      "order_id": "1e3f6ea4",
+      "status": "orphan",
+      "old_path": "Orders_Images/1e3f6ea4.Delivery Photo.144015.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "1e62e168.Delivery Photo.153649.jpg",
+      "order_id": "1e62e168",
+      "status": "orphan",
+      "old_path": "Orders_Images/1e62e168.Delivery Photo.153649.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "20792ae0.Delivery Photo.152142.jpg",
+      "order_id": "20792ae0",
+      "status": "orphan",
+      "old_path": "Orders_Images/20792ae0.Delivery Photo.152142.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "20a595a5.Delivery Photo.184132.jpg",
+      "order_id": "20a595a5",
+      "status": "orphan",
+      "old_path": "Orders_Images/20a595a5.Delivery Photo.184132.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "21f2cada.Delivery Photo.134445.jpg",
+      "order_id": "21f2cada",
+      "status": "orphan",
+      "old_path": "Orders_Images/21f2cada.Delivery Photo.134445.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "229a4d13.Delivery Photo.153906.jpg",
+      "order_id": "229a4d13",
+      "status": "orphan",
+      "old_path": "Orders_Images/229a4d13.Delivery Photo.153906.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "23b2ad77.Delivery Photo.180220.jpg",
+      "order_id": "23b2ad77",
+      "status": "orphan",
+      "old_path": "Orders_Images/23b2ad77.Delivery Photo.180220.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "24348dce.Delivery Photo.151153.jpg",
+      "order_id": "24348dce",
+      "status": "orphan",
+      "old_path": "Orders_Images/24348dce.Delivery Photo.151153.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "28996506.Delivery Photo.141604.jpg",
+      "order_id": "28996506",
+      "status": "orphan",
+      "old_path": "Orders_Images/28996506.Delivery Photo.141604.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "2bafc4f2.Delivery Photo.151246.jpg",
+      "order_id": "2bafc4f2",
+      "status": "orphan",
+      "old_path": "Orders_Images/2bafc4f2.Delivery Photo.151246.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "2e7da936.Delivery Photo.021724.jpg",
+      "order_id": "2e7da936",
+      "status": "orphan",
+      "old_path": "Orders_Images/2e7da936.Delivery Photo.021724.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "2fd2839f.Delivery Photo.163726.jpg",
+      "order_id": "2fd2839f",
+      "status": "orphan",
+      "old_path": "Orders_Images/2fd2839f.Delivery Photo.163726.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "330d1b74.Delivery Photo.152500.jpg",
+      "order_id": "330d1b74",
+      "status": "orphan",
+      "old_path": "Orders_Images/330d1b74.Delivery Photo.152500.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "36355de6.Delivery Photo.133130.jpg",
+      "order_id": "36355de6",
+      "status": "orphan",
+      "old_path": "Orders_Images/36355de6.Delivery Photo.133130.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "3d77b0d1.Delivery Photo.160515.jpg",
+      "order_id": "3d77b0d1",
+      "status": "orphan",
+      "old_path": "Orders_Images/3d77b0d1.Delivery Photo.160515.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "3e3a51d4.Delivery Photo.175237.jpg",
+      "order_id": "3e3a51d4",
+      "status": "orphan",
+      "old_path": "Orders_Images/3e3a51d4.Delivery Photo.175237.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "3efeccda.Delivery Photo.154250.jpg",
+      "order_id": "3efeccda",
+      "status": "orphan",
+      "old_path": "Orders_Images/3efeccda.Delivery Photo.154250.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "415511ae.Delivery Photo.171049.jpg",
+      "order_id": "415511ae",
+      "status": "orphan",
+      "old_path": "Orders_Images/415511ae.Delivery Photo.171049.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "4586b977.Delivery Photo.170640.jpg",
+      "order_id": "4586b977",
+      "status": "orphan",
+      "old_path": "Orders_Images/4586b977.Delivery Photo.170640.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "45b491e5.Delivery Photo.154324.jpg",
+      "order_id": "45b491e5",
+      "status": "orphan",
+      "old_path": "Orders_Images/45b491e5.Delivery Photo.154324.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "471f5296.Delivery Photo.153858.jpg",
+      "order_id": "471f5296",
+      "status": "orphan",
+      "old_path": "Orders_Images/471f5296.Delivery Photo.153858.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "4a0f8ae4.Delivery Photo.160832.jpg",
+      "order_id": "4a0f8ae4",
+      "status": "orphan",
+      "old_path": "Orders_Images/4a0f8ae4.Delivery Photo.160832.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "4b463535.Delivery Photo.173434.jpg",
+      "order_id": "4b463535",
+      "status": "orphan",
+      "old_path": "Orders_Images/4b463535.Delivery Photo.173434.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "4c7be32d.Delivery Photo.142519.jpg",
+      "order_id": "4c7be32d",
+      "status": "orphan",
+      "old_path": "Orders_Images/4c7be32d.Delivery Photo.142519.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "4ed7d5ce.Delivery Photo.151638.jpg",
+      "order_id": "4ed7d5ce",
+      "status": "orphan",
+      "old_path": "Orders_Images/4ed7d5ce.Delivery Photo.151638.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "4ffe1f30.Delivery Photo.140548.jpg",
+      "order_id": "4ffe1f30",
+      "status": "orphan",
+      "old_path": "Orders_Images/4ffe1f30.Delivery Photo.140548.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "59e8c030.Delivery Photo.144329.jpg",
+      "order_id": "59e8c030",
+      "status": "orphan",
+      "old_path": "Orders_Images/59e8c030.Delivery Photo.144329.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "5acf3dc3.Delivery Photo.161723.jpg",
+      "order_id": "5acf3dc3",
+      "status": "orphan",
+      "old_path": "Orders_Images/5acf3dc3.Delivery Photo.161723.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "5bcb2943.Delivery Photo.152837.jpg",
+      "order_id": "5bcb2943",
+      "status": "orphan",
+      "old_path": "Orders_Images/5bcb2943.Delivery Photo.152837.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "5bd3b771.Delivery Photo.161926.jpg",
+      "order_id": "5bd3b771",
+      "status": "orphan",
+      "old_path": "Orders_Images/5bd3b771.Delivery Photo.161926.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "5d1d1be5.Delivery Photo.162759.jpg",
+      "order_id": "5d1d1be5",
+      "status": "orphan",
+      "old_path": "Orders_Images/5d1d1be5.Delivery Photo.162759.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "5f42b29b.Delivery Photo.144118.jpg",
+      "order_id": "5f42b29b",
+      "status": "orphan",
+      "old_path": "Orders_Images/5f42b29b.Delivery Photo.144118.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "5f4770b4.Delivery Photo.171525.jpg",
+      "order_id": "5f4770b4",
+      "status": "orphan",
+      "old_path": "Orders_Images/5f4770b4.Delivery Photo.171525.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "65d44738.Delivery Photo.180104.jpg",
+      "order_id": "65d44738",
+      "status": "orphan",
+      "old_path": "Orders_Images/65d44738.Delivery Photo.180104.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "675ae3e3.Delivery Photo.140347.jpg",
+      "order_id": "675ae3e3",
+      "status": "orphan",
+      "old_path": "Orders_Images/675ae3e3.Delivery Photo.140347.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "69cb2b3d.Delivery Photo.183833.jpg",
+      "order_id": "69cb2b3d",
+      "status": "orphan",
+      "old_path": "Orders_Images/69cb2b3d.Delivery Photo.183833.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "702c25ba.Delivery Photo.175313.jpg",
+      "order_id": "702c25ba",
+      "status": "orphan",
+      "old_path": "Orders_Images/702c25ba.Delivery Photo.175313.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "7123437b.Delivery Photo.143529.jpg",
+      "order_id": "7123437b",
+      "status": "orphan",
+      "old_path": "Orders_Images/7123437b.Delivery Photo.143529.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "719b5188.Delivery Photo.164726.jpg",
+      "order_id": "719b5188",
+      "status": "orphan",
+      "old_path": "Orders_Images/719b5188.Delivery Photo.164726.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "7d0cdfa2.Delivery Photo.195731.jpg",
+      "order_id": "7d0cdfa2",
+      "status": "orphan",
+      "old_path": "Orders_Images/7d0cdfa2.Delivery Photo.195731.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "7ea58644.Delivery Photo.185654.jpg",
+      "order_id": "7ea58644",
+      "status": "orphan",
+      "old_path": "Orders_Images/7ea58644.Delivery Photo.185654.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "7f30ad7d.Delivery Photo.160534.jpg",
+      "order_id": "7f30ad7d",
+      "status": "orphan",
+      "old_path": "Orders_Images/7f30ad7d.Delivery Photo.160534.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8249c8d8.Delivery Photo.162616.jpg",
+      "order_id": "8249c8d8",
+      "status": "orphan",
+      "old_path": "Orders_Images/8249c8d8.Delivery Photo.162616.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "86884c82.Delivery Photo.183132.jpg",
+      "order_id": "86884c82",
+      "status": "orphan",
+      "old_path": "Orders_Images/86884c82.Delivery Photo.183132.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8b761b54.Delivery Photo.213943.jpg",
+      "order_id": "8b761b54",
+      "status": "orphan",
+      "old_path": "Orders_Images/8b761b54.Delivery Photo.213943.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8be4961e.Delivery Photo.153337.jpg",
+      "order_id": "8be4961e",
+      "status": "orphan",
+      "old_path": "Orders_Images/8be4961e.Delivery Photo.153337.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8c22cc1a.Delivery Photo.193304.jpg",
+      "order_id": "8c22cc1a",
+      "status": "orphan",
+      "old_path": "Orders_Images/8c22cc1a.Delivery Photo.193304.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8c7b8b1f.Delivery Photo.190151.jpg",
+      "order_id": "8c7b8b1f",
+      "status": "orphan",
+      "old_path": "Orders_Images/8c7b8b1f.Delivery Photo.190151.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8e6f9758.Delivery Photo.154002.jpg",
+      "order_id": "8e6f9758",
+      "status": "orphan",
+      "old_path": "Orders_Images/8e6f9758.Delivery Photo.154002.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8f9a1ca6.Delivery Photo.163823.jpg",
+      "order_id": "8f9a1ca6",
+      "status": "orphan",
+      "old_path": "Orders_Images/8f9a1ca6.Delivery Photo.163823.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "8fd931e4.Delivery Photo.175258.jpg",
+      "order_id": "8fd931e4",
+      "status": "orphan",
+      "old_path": "Orders_Images/8fd931e4.Delivery Photo.175258.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "908a6bf7.Delivery Photo.153049.jpg",
+      "order_id": "908a6bf7",
+      "status": "orphan",
+      "old_path": "Orders_Images/908a6bf7.Delivery Photo.153049.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "9ccab1c9.Delivery Photo.144059.jpg",
+      "order_id": "9ccab1c9",
+      "status": "orphan",
+      "old_path": "Orders_Images/9ccab1c9.Delivery Photo.144059.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "9f4e7e3d.Delivery Photo.163619.jpg",
+      "order_id": "9f4e7e3d",
+      "status": "orphan",
+      "old_path": "Orders_Images/9f4e7e3d.Delivery Photo.163619.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "9fc45053.Delivery Photo.202436.jpg",
+      "order_id": "9fc45053",
+      "status": "orphan",
+      "old_path": "Orders_Images/9fc45053.Delivery Photo.202436.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "a0b2d90a.Delivery Photo.153342.jpg",
+      "order_id": "a0b2d90a",
+      "status": "orphan",
+      "old_path": "Orders_Images/a0b2d90a.Delivery Photo.153342.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "a25bf6a1.Delivery Photo.131450.jpg",
+      "order_id": "a25bf6a1",
+      "status": "orphan",
+      "old_path": "Orders_Images/a25bf6a1.Delivery Photo.131450.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "a48e7b30.Delivery Photo.182027.jpg",
+      "order_id": "a48e7b30",
+      "status": "orphan",
+      "old_path": "Orders_Images/a48e7b30.Delivery Photo.182027.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "a62ed62a.Delivery Photo.163606.jpg",
+      "order_id": "a62ed62a",
+      "status": "orphan",
+      "old_path": "Orders_Images/a62ed62a.Delivery Photo.163606.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "a7a4a348.Delivery Photo.170432.jpg",
+      "order_id": "a7a4a348",
+      "status": "orphan",
+      "old_path": "Orders_Images/a7a4a348.Delivery Photo.170432.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "aabf82cb.Delivery Photo.184219.jpg",
+      "order_id": "aabf82cb",
+      "status": "orphan",
+      "old_path": "Orders_Images/aabf82cb.Delivery Photo.184219.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "ad2e6e8b.Delivery Photo.154407.jpg",
+      "order_id": "ad2e6e8b",
+      "status": "orphan",
+      "old_path": "Orders_Images/ad2e6e8b.Delivery Photo.154407.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "aea8014a.Delivery Photo.185850.jpg",
+      "order_id": "aea8014a",
+      "status": "orphan",
+      "old_path": "Orders_Images/aea8014a.Delivery Photo.185850.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "afd8a0fa.Delivery Photo.150709.jpg",
+      "order_id": "afd8a0fa",
+      "status": "orphan",
+      "old_path": "Orders_Images/afd8a0fa.Delivery Photo.150709.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "afe19ae0.Delivery Photo.165417.jpg",
+      "order_id": "afe19ae0",
+      "status": "orphan",
+      "old_path": "Orders_Images/afe19ae0.Delivery Photo.165417.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b0d4a203.Delivery Photo.143340.jpg",
+      "order_id": "b0d4a203",
+      "status": "orphan",
+      "old_path": "Orders_Images/b0d4a203.Delivery Photo.143340.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b438dc69.Delivery Photo.163056.jpg",
+      "order_id": "b438dc69",
+      "status": "orphan",
+      "old_path": "Orders_Images/b438dc69.Delivery Photo.163056.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b4a92125.Delivery Photo.174821.jpg",
+      "order_id": "b4a92125",
+      "status": "orphan",
+      "old_path": "Orders_Images/b4a92125.Delivery Photo.174821.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b4d78c2b.Delivery Photo.134410.jpg",
+      "order_id": "b4d78c2b",
+      "status": "orphan",
+      "old_path": "Orders_Images/b4d78c2b.Delivery Photo.134410.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b7300afe.Delivery Photo.160759.jpg",
+      "order_id": "b7300afe",
+      "status": "orphan",
+      "old_path": "Orders_Images/b7300afe.Delivery Photo.160759.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b8f6649d.Delivery Photo.155146.jpg",
+      "order_id": "b8f6649d",
+      "status": "orphan",
+      "old_path": "Orders_Images/b8f6649d.Delivery Photo.155146.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "b93803b5.Delivery Photo.144136.jpg",
+      "order_id": "b93803b5",
+      "status": "orphan",
+      "old_path": "Orders_Images/b93803b5.Delivery Photo.144136.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "ba48857d.Delivery Photo.171559.jpg",
+      "order_id": "ba48857d",
+      "status": "orphan",
+      "old_path": "Orders_Images/ba48857d.Delivery Photo.171559.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "bd3183cc.Delivery Photo.183151.jpg",
+      "order_id": "bd3183cc",
+      "status": "orphan",
+      "old_path": "Orders_Images/bd3183cc.Delivery Photo.183151.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "bd380368.Delivery Photo.130328.jpg",
+      "order_id": "bd380368",
+      "status": "orphan",
+      "old_path": "Orders_Images/bd380368.Delivery Photo.130328.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "bdea91c2.Delivery Photo.025044.jpg",
+      "order_id": "bdea91c2",
+      "status": "orphan",
+      "old_path": "Orders_Images/bdea91c2.Delivery Photo.025044.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c0007696.Delivery Photo.190213.jpg",
+      "order_id": "c0007696",
+      "status": "orphan",
+      "old_path": "Orders_Images/c0007696.Delivery Photo.190213.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c1c123c0.Delivery Photo.185639.jpg",
+      "order_id": "c1c123c0",
+      "status": "orphan",
+      "old_path": "Orders_Images/c1c123c0.Delivery Photo.185639.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c2c0068e.Delivery Photo.184127.jpg",
+      "order_id": "c2c0068e",
+      "status": "orphan",
+      "old_path": "Orders_Images/c2c0068e.Delivery Photo.184127.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c48f4bec.Delivery Photo.142449.jpg",
+      "order_id": "c48f4bec",
+      "status": "orphan",
+      "old_path": "Orders_Images/c48f4bec.Delivery Photo.142449.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c4b81a4a.Delivery Photo.150456.jpg",
+      "order_id": "c4b81a4a",
+      "status": "orphan",
+      "old_path": "Orders_Images/c4b81a4a.Delivery Photo.150456.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c524d620.Delivery Photo.131455.jpg",
+      "order_id": "c524d620",
+      "status": "orphan",
+      "old_path": "Orders_Images/c524d620.Delivery Photo.131455.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "c9a0e8ae.Delivery Photo.154331.jpg",
+      "order_id": "c9a0e8ae",
+      "status": "orphan",
+      "old_path": "Orders_Images/c9a0e8ae.Delivery Photo.154331.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "d3b24bf7.Delivery Photo.153620.jpg",
+      "order_id": "d3b24bf7",
+      "status": "orphan",
+      "old_path": "Orders_Images/d3b24bf7.Delivery Photo.153620.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "d870ec70.Delivery Photo.151558.jpg",
+      "order_id": "d870ec70",
+      "status": "orphan",
+      "old_path": "Orders_Images/d870ec70.Delivery Photo.151558.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "db668d3f.Delivery Photo.145208.jpg",
+      "order_id": "db668d3f",
+      "status": "orphan",
+      "old_path": "Orders_Images/db668d3f.Delivery Photo.145208.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "e6451cfa.Delivery Photo.175014.jpg",
+      "order_id": "e6451cfa",
+      "status": "orphan",
+      "old_path": "Orders_Images/e6451cfa.Delivery Photo.175014.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "e7f91635.Delivery Photo.141642.jpg",
+      "order_id": "e7f91635",
+      "status": "orphan",
+      "old_path": "Orders_Images/e7f91635.Delivery Photo.141642.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "e8a75e53.Delivery Photo.130506.jpg",
+      "order_id": "e8a75e53",
+      "status": "orphan",
+      "old_path": "Orders_Images/e8a75e53.Delivery Photo.130506.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "ee2a0263.Delivery Photo.144503.jpg",
+      "order_id": "ee2a0263",
+      "status": "orphan",
+      "old_path": "Orders_Images/ee2a0263.Delivery Photo.144503.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f071bb3b.Delivery Photo.154222.jpg",
+      "order_id": "f071bb3b",
+      "status": "orphan",
+      "old_path": "Orders_Images/f071bb3b.Delivery Photo.154222.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f2558ba5.Delivery Photo.163529.jpg",
+      "order_id": "f2558ba5",
+      "status": "orphan",
+      "old_path": "Orders_Images/f2558ba5.Delivery Photo.163529.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f2ef1072.Delivery Photo.140800.jpg",
+      "order_id": "f2ef1072",
+      "status": "orphan",
+      "old_path": "Orders_Images/f2ef1072.Delivery Photo.140800.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f2f7afba.Delivery Photo.160846.jpg",
+      "order_id": "f2f7afba",
+      "status": "orphan",
+      "old_path": "Orders_Images/f2f7afba.Delivery Photo.160846.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f4d44f42.Delivery Photo.165054.jpg",
+      "order_id": "f4d44f42",
+      "status": "orphan",
+      "old_path": "Orders_Images/f4d44f42.Delivery Photo.165054.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f84061f9.Delivery Photo.152547.jpg",
+      "order_id": "f84061f9",
+      "status": "orphan",
+      "old_path": "Orders_Images/f84061f9.Delivery Photo.152547.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "f8d57290.Delivery Photo.161049.jpg",
+      "order_id": "f8d57290",
+      "status": "orphan",
+      "old_path": "Orders_Images/f8d57290.Delivery Photo.161049.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "fccc4313.Delivery Photo.151533.jpg",
+      "order_id": "fccc4313",
+      "status": "orphan",
+      "old_path": "Orders_Images/fccc4313.Delivery Photo.151533.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    },
+    {
+      "filename": "fff4e4e9.Delivery Photo.153955.jpg",
+      "order_id": "fff4e4e9",
+      "status": "orphan",
+      "old_path": "Orders_Images/fff4e4e9.Delivery Photo.153955.jpg",
+      "error": "Pedido no encontrado en base de datos"
+    }
+  ],
+  "errors": []
+}

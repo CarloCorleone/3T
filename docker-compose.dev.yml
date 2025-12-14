@@ -1,0 +1,38 @@
+# ===================================================
+# DOCKER COMPOSE - AGUA TRES TORRES (3T) - DESARROLLO
+# ===================================================
+# Modo desarrollo con hot reload
+# Puerto interno: 3001
+# Red: cane_net
+# Variables: /opt/cane/env/3t.env
+# ===================================================
+
+services:
+  3t-app-dev:
+    image: node:20-alpine
+    container_name: 3t-app-dev
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "3001:3001"
+    env_file:
+      - /opt/cane/env/3t.env
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - HOSTNAME=0.0.0.0
+      - WATCHPACK_POLLING=true
+    volumes:
+      # Montar código fuente (cambios en tiempo real)
+      - ./:/app
+      # Excluir node_modules y .next (usar del contenedor)
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - cane_net
+    restart: unless-stopped
+
+networks:
+  cane_net:
+    external: true
+

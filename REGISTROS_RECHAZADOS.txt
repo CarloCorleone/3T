@@ -1,0 +1,48 @@
+═══════════════════════════════════════════════════════════════════
+           REPORTE DE REGISTROS RECHAZADOS
+═══════════════════════════════════════════════════════════════════
+
+1. DIRECCIONES SIN CLIENTE (10)
+----------------------------------------------------------------------
+1. c3cdf107 → Cliente: a6c4t3y2
+   Altos de la Arboleda 6023.0, Peñalolen, Region Metropolitana, Chile, Peñalolen
+
+2. c3cdf120 → Cliente: q1w4i4y3
+   Miguel Claro 1555.0, Providencia, Region Metropolitana, Chile, Providencia
+
+3. c3cdf121 → Cliente: n9d6n0y0
+   Santillana del Mar 459.0, Quilicura, Region Metropolitana, Chile, Quilicura
+
+4. c3cdf127 → Cliente: i3p8c6l7
+   Andrea Lopez Zarate 1042.0, Peñalolen, Region Metropolitana, Chile, Peñalolen
+
+5. c3cdf140 → Cliente: l2s3m2r3
+   Av. Fresia 2133.0, renca, Region Metropolitana, Chile, renca
+
+6. c3cdf142 → Cliente: e9n1m7v2
+   El Barrancón 3500.0, San Bernardo, Region Metropolitana, Chile, San Bernardo
+
+7. c3cdf147 → Cliente: a0e8q3d7
+   Pedro leon Ugalde 608.0, Quinta Normal, Region Metropolitana, Chile, Quinta Normal
+
+8. c3cdf164 → Cliente: m2y4f5u2
+   Julio Prado 1920.0, Ñuñoa, Region Metropolitana, Chile, Ñuñoa
+
+9. c3cdf181 → Cliente: r7o5p6r7
+   Av. Pte. Edo. Frei Montalva 3899.0, Conchalí, Region Metropolitana, Chile, Conchalí
+
+10. b0d8e69d → Cliente: 0bdfb391
+   Teresa Vial 1301.0, San Miguel, Region Metropolitana, Chile, San Miguel
+
+
+2. CLIENTES FALTANTES EN ORDERS
+----------------------------------------------------------------------
+1. q1w4i4y3 → 1 orders, 3 botellones
+
+3. DIRECCIONES FALTANTES EN ORDERS
+----------------------------------------------------------------------
+1. c3cdf120 → usado en 1 orders
+2. c3cdf175 → usado en 2 orders
+3. c3ccdf92 → usado en 1 orders
+4. c3cdf164 → usado en 1 orders
+5. 7b2e6a8e → usado en 1 orders
